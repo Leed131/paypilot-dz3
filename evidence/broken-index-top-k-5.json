@@ -1,0 +1,182 @@
+{
+  "experiment": "Does larger top_k recover missing tail of broken tariff row?",
+  "date": "2026-10-24",
+  "trace_id": "d946930c",
+  "source": "User-provided screenshot, complete trace, agent.request/get_account JSON and both full search results.",
+  "request": "Search the Verta documentation: what FX spread applies to my account and what is my free monthly conversion allowance?",
+  "attributes": {
+    "session.id": "ae3078d7c9dd",
+    "dialog.step_number": 1,
+    "run.profile": "clean",
+    "run.active_defects": [],
+    "prompt.version": "base.v1",
+    "reply.language_detected": "",
+    "llm.provider": "openai",
+    "session.customer_id": "CUS-0003",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 6852,
+    "gen_ai.usage.total_output_tokens": 1219
+  },
+  "duration_ms": 13546.3,
+  "get_account": {
+    "tool.name": "get_account",
+    "tool.arguments": {
+      "account_id": ""
+    },
+    "tool.result": {
+      "customer": {
+        "id": "CUS-0003",
+        "name": "Clara Fischer",
+        "tier": "tier3"
+      },
+      "accounts": [
+        {
+          "id": "ACC-1004",
+          "customer_id": "CUS-0003",
+          "currency": "EUR",
+          "balance": 145000,
+          "tier": "tier3",
+          "holder": "Clara Fischer"
+        }
+      ]
+    }
+  },
+  "steps": [
+    "llm.call 0",
+    "get_account",
+    "llm.call 1",
+    "search_knowledge_base #1",
+    "llm.call 2",
+    "search_knowledge_base #2",
+    "llm.call 3"
+  ],
+  "searches": [
+    {
+      "call_number": 1,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "FX spread tier3 free monthly conversion allowance Verta documentation spread tier3 free allowance monthly conversion"
+      },
+      "tool.result": {
+        "index": "kb_broken",
+        "top_k": 5,
+        "query": "FX spread tier3 free monthly conversion allowance Verta documentation spread tier3 free allowance monthly conversion",
+        "fragments": [
+          {
+            "id": "fx-guide.md#b2",
+            "doc": "fx-guide.md",
+            "score": 1.2247,
+            "text": " spread (a percentage of the gross converted amount); the free monthly conversion allowance. If the whole conversion fits within the customer's remaining monthl"
+          },
+          {
+            "id": "fx-operations.md#b3",
+            "doc": "fx-operations.md",
+            "score": 1.2,
+            "text": "pplied at settlement is the mid-market rate at settlement time plus the tier spread. ## Allowance accounting The free monthly conversion allowance is counted in"
+          },
+          {
+            "id": "tariffs.md#b3",
+            "doc": "tariffs.md",
+            "score": 1.1547,
+            "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+          },
+          {
+            "id": "tariffs.md#b2",
+            "doc": "tariffs.md",
+            "score": 1.1339,
+            "text": "aily and per-month transfer limits. ## FX spreads by tier The spread is applied over the mid-market rate only after the free monthly conversion allowance is exh"
+          },
+          {
+            "id": "fx-guide.md#b4",
+            "doc": "fx-guide.md",
+            "score": 1.0426,
+            "text": "id rate, spread percentage applied, allowance total and allowance used before this conversion, gross converted amount, spread amount, and the final credited amo"
+          }
+        ]
+      }
+    },
+    {
+      "call_number": 2,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "Tier 3 FX spread free monthly conversion allowance tariffs tier3 \"free monthly\" \"Tier 3\""
+      },
+      "tool.result": {
+        "index": "kb_broken",
+        "top_k": 5,
+        "query": "Tier 3 FX spread free monthly conversion allowance tariffs tier3 \"free monthly\" \"Tier 3\"",
+        "fragments": [
+          {
+            "id": "tariffs.md#b3",
+            "doc": "tariffs.md",
+            "score": 2.117,
+            "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+          },
+          {
+            "id": "onboarding.md#b2",
+            "doc": "onboarding.md",
+            "score": 1.5396,
+            "text": "ee consecutive months. Tier 3 is granted on application and is reviewed annually. ## Tier benefits A higher tier lowers the FX spread, raises the free monthly c"
+          },
+          {
+            "id": "fx-operations.md#b3",
+            "doc": "fx-operations.md",
+            "score": 1.4,
+            "text": "pplied at settlement is the mid-market rate at settlement time plus the tier spread. ## Allowance accounting The free monthly conversion allowance is counted in"
+          },
+          {
+            "id": "tariffs.md#b2",
+            "doc": "tariffs.md",
+            "score": 1.3229,
+            "text": "aily and per-month transfer limits. ## FX spreads by tier The spread is applied over the mid-market rate only after the free monthly conversion allowance is exh"
+          },
+          {
+            "id": "fx-guide.md#b2",
+            "doc": "fx-guide.md",
+            "score": 1.2247,
+            "text": " spread (a percentage of the gross converted amount); the free monthly conversion allowance. If the whole conversion fits within the customer's remaining monthl"
+          }
+        ]
+      }
+    }
+  ],
+  "reply_transcribed_from_screenshot": "What I did\n- Looked up your account to confirm your tier.\n- Searched Verta documentation for FX spreads and free monthly conversion allowances.\n\nWhat I found\n- Your account is tier3.\n- The knowledge-base fragments show an FX spread of 0.5% for Tier 3.\n- The free monthly conversion allowance in the retrieved tariff fragment is truncated as \"EUR 5\" and is therefore incomplete/unusable as presented.\n\nWhat happens next\n- I can run a deeper search of the tariffs/docs to retrieve the complete allowance figure, or\n- I can escalate to a human agent to confirm the allowance if you prefer.\n\nWhich would you like me to do?",
+  "evaluation": {
+    "complete_answer": false,
+    "reference_facts": [
+      "Tier 3 FX spread = 0.5%",
+      "Tier 3 free monthly conversion allowance = EUR 5,000"
+    ],
+    "reference_fact_coverage": {
+      "numerator": 1,
+      "denominator": 2,
+      "value": 0.5
+    },
+    "context_precision": {
+      "numerator": 2,
+      "denominator": 10,
+      "value": 0.2,
+      "convention": "One target tariff fragment per call; all ten returned occurrences counted including repeats."
+    },
+    "faithfulness_affirmative_requested_numeric_claims": {
+      "numerator": 1,
+      "denominator": 1,
+      "value": 1,
+      "scope": "Only the affirmative spread claim. Missing full allowance is explicitly acknowledged, not asserted as EUR 5."
+    },
+    "tariffs_b4_retrieved": false,
+    "fx_guide_b4_retrieved": true,
+    "distinct_fragment_ids": 6,
+    "comparison_with_top_k1": {
+      "trace_id": "9196e7e0",
+      "retrieved": [
+        "fx-guide.md#b2"
+      ],
+      "reference_coverage": "0/2",
+      "tariffs_b4_retrieved": false,
+      "answer": "Acknowledged missing numerical values."
+    },
+    "conclusion": "Larger top_k partially improved fact coverage (0/2 to 1/2), but did not retrieve tariffs.md#b4 or restore the full allowance. Do not claim top_k never helps, or mistake fx-guide.md#b4 for tariffs.md#b4.",
+    "limits": "Agent-generated queries and number of searches differ between top_k1 and top_k5; this is an observed comparison, not a same-query causal experiment."
+  }
+}
