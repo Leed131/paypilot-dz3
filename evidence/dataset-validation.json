@@ -1,0 +1,39 @@
+{
+  "validation": "original kit CLI dry-run plus independent corpus-reference checks; no Docker or model calls",
+  "cases": 42,
+  "new_retrieval_cases": 10,
+  "original_32_unchanged": true,
+  "corpus_references_verified": [
+    "RET-H01",
+    "RET-H02",
+    "RET-H03",
+    "RET-H04",
+    "RET-H05",
+    "RET-H06",
+    "RET-H07",
+    "RET-H08",
+    "RET-H09",
+    "RET-H10"
+  ],
+  "source_counts": {
+    "complaint": 2,
+    "corpus": 8,
+    "lab": 0
+  },
+  "set_hash": "bba68640a585",
+  "scope": "Run in assistant scratch with original kit Python files. This is not Docker execution and not an agent/model eval.",
+  "cli_command": "python3 validation/l03/cli.py --set golden --dry-run",
+  "cli_exit_code": 0,
+  "cli_stdout": "set golden.jsonl set_hash bba68640a585\n{\n  \"cases\": 42,\n  \"layers\": {\n    \"action\": 11,\n    \"generation\": 21,\n    \"retrieval\": 10\n  },\n  \"oracles\": {\n    \"corpus\": 12,\n    \"engine\": 25,\n    \"human\": 5\n  },\n  \"sources\": {\n    \"complaint\": 13,\n    \"corpus\": 8,\n    \"edge\": 12,\n    \"engine\": 9\n  },\n  \"severities\": {\n    \"critical\": 4,\n    \"high\": 31,\n    \"medium\": 7\n  },\n  \"ladder_levels\": [\n    1,\n    2,\n    3,\n    4,\n    7\n  ],\n  \"gates\": {\n    \"daily\": 37,\n    \"release\": 5\n  },\n  \"human_oracle_pct\": 11.9,\n  \"severity_filled_pct\": 100.0\n}\n",
+  "independent_reference_check_exit_code": 0,
+  "kit_repository": "Leed131/paypilot-l03-eval",
+  "kit_file_blob_shas": {
+    "loader": "63272e409cc779a3941b31793400a94803bea0e8",
+    "assertions": "87beaa5cea1b9b007aac67d3b817a53d697f7f6a",
+    "validate": "f1f7d9fad73c23dd435a35aaab3735a26f27297b",
+    "cli": "0cb9f54f25ea65427a26366876dfe9f6bfa5356c"
+  },
+  "docker_dry_run_on_user_machine": "pending",
+  "model_eval_clean": "not run",
+  "model_eval_lesson_04": "not run"
+}
