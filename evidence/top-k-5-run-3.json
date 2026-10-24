@@ -1,0 +1,108 @@
+{
+  "experiment": "top_k tradeoff",
+  "top_k": 5,
+  "run_number": 3,
+  "date": "2026-10-24",
+  "trace_id": "2b1356f9",
+  "source": "User-provided complete trace, agent.request JSON, full search JSON and screenshot of answer.",
+  "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
+  "attributes": {
+    "session.id": "ebff97694cf1",
+    "dialog.step_number": 1,
+    "run.profile": "clean",
+    "run.active_defects": [],
+    "prompt.version": "base.v1",
+    "reply.language_detected": "uk",
+    "llm.provider": "openai",
+    "session.customer_id": "",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 3368,
+    "gen_ai.usage.total_output_tokens": 961
+  },
+  "duration_ms": 8953.7,
+  "steps": [
+    "llm.call 0",
+    "search_knowledge_base",
+    "llm.call 1"
+  ],
+  "searches": [
+    {
+      "call_number": 1,
+      "full_json_provided": true,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread \"Tier 2\" daily limit transfer spread knowledge base Verta tariffs limits Tier 2"
+      },
+      "tool.result": {
+        "index": "kb_clean",
+        "top_k": 5,
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread \"Tier 2\" daily limit transfer spread knowledge base Verta tariffs limits Tier 2",
+        "fragments": [
+          {
+            "id": "limits.md#s1",
+            "doc": "limits.md",
+            "score": 1.8475,
+            "text": "Transfer limits\n## Daily and monthly limits by tier\nOutgoing transfer limits are tracked in EUR equivalent, separately per day and\nper calendar month. The daily and the monthly remainder are different numbers:\nboth are computed from the same settled-transactions source, but over\ndifferent windows.\n\n| Tier | Daily limit | Monthly limit |\n|---|---|---|\n| Tier 1 | EUR 5,000 | EUR 50,000 |\n| Tier 2 | EUR 20,000 | EUR 200,000 |\n| Tier 3 | EUR 100,000 | EUR 1,000,000 |"
+          },
+          {
+            "id": "tariffs.md#s1",
+            "doc": "tariffs.md",
+            "score": 1.6903,
+            "text": "Verta tariff schedule\n## Account tiers\nVerta offers three account tiers: Tier 1, Tier 2 and Tier 3. The tier of\neach account sets its pricing as well as its daily and per-month transfer\nlimits."
+          },
+          {
+            "id": "glossary.md#s6",
+            "doc": "glossary.md",
+            "score": 1.6681,
+            "text": "Glossary\n## Tier\nThe tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines\nspreads, allowances and transfer limits."
+          },
+          {
+            "id": "tariffs.md#s2",
+            "doc": "tariffs.md",
+            "score": 1.2481,
+            "text": "Verta tariff schedule\n## FX spreads by tier\nThe spread is applied over the mid-market rate only after the free monthly\nconversion allowance is exhausted.\n\n| Tier | FX spread | Free monthly conversion allowance |\n|---|---|---|\n| Tier 1 | 1.5% | EUR 500 |\n| Tier 2 | 0.9% | EUR 1,000 |\n| Tier 3 | 0.5% | EUR 5,000 |"
+          },
+          {
+            "id": "limits.md#s2",
+            "doc": "limits.md",
+            "score": 1.0435,
+            "text": "Transfer limits\n## How the remainder is computed\nThe daily remainder equals the daily limit minus settled outgoing transfers\ndated today. The monthly remainder equals the monthly limit minus settled\noutgoing transfers in the current calendar month. A transfer is refused when\nit exceeds either remainder."
+          }
+        ]
+      }
+    }
+  ],
+  "reply_transcribed_from_screenshot": "Я перевірив документацію Verta.\n\nЩо знайшов:\n- FX spread для Tier 2 — 0.9% (з розділу \"Verta tariff schedule\" — \"FX spreads by tier\").\n- Денний ліміт переказів для Tier 2 — EUR 20,000 (з розділу \"Transfer limits\" — \"Daily and monthly limits by tier\").\n\nЩо робимо далі: можу перевірити ваш персональний рівень Tier або актуальні залишки й залишок ліміту на вашому рахунку — скажіть, чи перевіряти ваш акаунт.",
+  "evaluation": {
+    "complete_answer_by_requested_facts": true,
+    "requested_facts_answered": 2,
+    "requested_facts_total": 2,
+    "search_calls": 1,
+    "single_search_instruction_followed": true,
+    "returned_fragment_occurrences": 5,
+    "distinct_fragment_ids": 5,
+    "context_recall": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1
+    },
+    "context_precision": {
+      "numerator": 2,
+      "denominator": 5,
+      "value": 0.4,
+      "convention": "All returned fragment occurrences; relevance scoped to two requested values."
+    },
+    "retrieval_faithfulness": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1,
+      "scope": "Two requested numerical claims only, not every statement in the answer."
+    },
+    "group_progress": {
+      "completed_runs": 3,
+      "required_runs": 3,
+      "complete_answers": 3
+    },
+    "limitations": "This run skipped get_account and used two LLM calls, unlike the first two top-k=5 runs and all top-k=4 runs. Do not attribute lower whole-turn token usage solely to top_k."
+  }
+}
