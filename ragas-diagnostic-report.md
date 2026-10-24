@@ -2,7 +2,7 @@
 
 ## 1. Контекст
 
-24.10.2026; PayPilot, документація Verta; `kb_clean` — секції, `kb_broken` — обірвані чанки. OpenAI; `gpt-5-mini-2025-08-07` за трейcом D05 (JSON ранера не записують модель; однаковий model ID усіх серій окремо не підтверджено). [ДЗ_2](https://github.com/Leed131/paypilot-dz2): 32 незмінені кейси + 10 retrieval/corpus = 42; 37 daily, 5 release. В обох [raw reports](reports/) **set_hash=bba68640a585**. Clean/base.v1: 37/37 PASS, retrieval 10/10, 494.6 с; lesson-04/base.v1+D05: 31/37, retrieval 4/10, 530.5 с. Release не запускали. Це verdict assertion, не RAGAS-бали; нижче — ручні метрики.
+24.10.2026; PayPilot, документація Verta; `kb_clean` — секції, `kb_broken` — обірвані чанки. OpenAI / `gpt-5-mini` за налаштуваннями, підтвердженими 25.10.2026; у трейсі D05 — `gpt-5-mini-2025-08-07`. JSON ранера не фіксують snapshot кожного ходу. [ДЗ_2](https://github.com/Leed131/paypilot-dz2): 32 незмінені кейси + 10 retrieval/corpus = 42; 37 daily, 5 release. В обох [raw reports](reports/) **set_hash=bba68640a585**. Clean/base.v1: 37/37 PASS, retrieval 10/10, 494.6 с; lesson-04/base.v1+D05: 31/37, retrieval 4/10, 530.5 с. Release не запускали. Це verdict assertion, не RAGAS-бали; нижче — ручні метрики.
 
 ## 2. Локалізація
 
