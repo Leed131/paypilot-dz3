@@ -1,0 +1,724 @@
+mois@MacBook-Pro-de-Ida l03 % STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile clean
+Container l03-eval-run-07cbf203e6eb Creating 
+Container l03-eval-run-07cbf203e6eb Created 
+set golden (37 cases)  profile clean  prompt base.v1  gate daily
+------------------------------------------------------------------------
+PASS  FX-004     L2 generation  tool_grounded_numeric  19.4s, 5931 tokens
+      question  I'm CUS-0007. Convert 2000 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 2154.35 +/-0.02, and the same figure in the answer
+      tool      get_account()
+                -> customer={'id': 'CUS-0007', 'name': 'Greta Lindqvist', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1008', 'customer_id': 'CUS-0007', 'currency': 'EUR', 'balance': 27600.0, 'tier':
+                'tier2', 'holder': 'Greta Lindqvist'}]
+      tool      quote_fx(customer_id=CUS-0007, amount=2000, from_currency=EUR, to_currency=USD)
+                -> final_amount=2154.347826, from_currency=EUR, to_currency=USD, amount=2000,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.9, allowance_total_eur=1000,
+                allowance_used_before_eur=0.0, allowance_applied=False, gross_amount=2173.913043, …
+      verdict   quote_fx.final_amount = 2154.347826
+      answer    What I did
+                - Retrieved your account (ACC-1008) and requested an FX quote for converting 2,000.00 EUR →
+                USD.
+                What I found (quote components)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Gross (2,000.00 EUR × mid rate): 2,173.913043 USD …
+
+PASS  CMP-004    L3 generation  contains  11.2s, 6836 tokens
+      question  I'm CUS-0001. Answer in one line: how many days do I have to dispute a duplicate charge?
+      expected  answer contains '60'
+      tool      get_account(account_id=, =)
+                -> error=bad arguments for get_account: get_account() got an unexpected keyword argument ''
+      tool      get_account()
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      search_knowledge_base(query=duplicate charge dispute window days duplicate_charge dispute
+                period Verta)
+                -> index=kb_clean, top_k=4, query=duplicate charge dispute window days duplicate_charge
+                dispute period Verta, fragments=[{'id': 'disputes.md#s1', 'doc': 'disputes.md', 'score':
+                1.206, 'text': 'Payment dispute rules\n## Reason codes and chargeback windows\nEach reason …
+      verdict   ok
+      answer    I checked Verta’s dispute rules and found the duplicate_charge dispute window is 60 days from
+                the transaction date; if you’d like, I can check eligibility and open a dispute for a
+                specific transaction.
+
+PASS  CMP-006    L4 generation  not_contains  17.0s, 10879 tokens
+      question  I'm CUS-0001. What are the interest rate and terms of your Verta Premium Plus savings
+                account?
+      expected  answer does not contain 'minimum deposit'
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      search_knowledge_base(query=Verta Premium Plus savings account interest rate terms)
+                -> index=kb_clean, top_k=4, query=Verta Premium Plus savings account interest rate terms,
+                fragments=[{'id': 'accounts.md#s1', 'doc': 'accounts.md', 'score': 0.9285, 'text': 'Accounts
+                and balances\n## Account types\nEach Verta customer may hold one current account per …
+      tool      search_knowledge_base(query="Premium Plus" savings account Verta interest rate terms 'Premium
+                Plus' 'savings')
+                -> index=kb_clean, top_k=4, query="Premium Plus" savings account Verta interest rate terms
+                'Premium Plus' 'savings', fragments=[{'id': 'accounts.md#s1', 'doc': 'accounts.md', 'score':
+                0.9285, 'text': 'Accounts and balances\n## Account types\nEach Verta customer may hold one …
+      tool      search_knowledge_base(query=savings account interest rate Verta 'Premium Plus' 'interest'
+                'savings account')
+                -> index=kb_clean, top_k=4, query=savings account interest rate Verta 'Premium Plus'
+                'interest' 'savings account', fragments=[{'id': 'accounts.md#s1', 'doc': 'accounts.md',
+                'score': 0.9285, 'text': 'Accounts and balances\n## Account types\nEach Verta customer may …
+      verdict   ok
+      answer    What I did
+                - I looked up your customer record (CUS-0001 — Alice Novak, tier: tier1) and your accounts.
+                On file you have one account: ACC-1001 (EUR, balance shown).
+                - I searched the Verta knowledge base for "Verta Premium Plus savings account" and related
+                terms.
+                What I found …
+
+PASS  FX-002     L2 generation  tool_grounded_numeric  19.0s, 6062 tokens
+      question  I'm CUS-0002. Convert 3000 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 3231.52 +/-0.02, and the same figure in the answer
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      quote_fx(customer_id=CUS-0002, amount=3000, from_currency=EUR, to_currency=USD)
+                -> final_amount=3231.521739, from_currency=EUR, to_currency=USD, amount=3000,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.9, allowance_total_eur=1000,
+                allowance_used_before_eur=800.0, allowance_applied=False, gross_amount=3260.869565, …
+      verdict   quote_fx.final_amount = 3231.521739
+      answer    What I did
+                - Retrieved your account (CUS-0002) and ran an FX quote to convert 3,000.00 EUR → USD.
+                What I found (quote components)
+                - Mid rate: 1.086957
+                - Tier spread: 0.9%
+                - Gross (3,000 × mid rate): 3,260.87 USD …
+
+PASS  FX-003     L2 generation  tool_grounded_numeric  17.1s, 5548 tokens
+      question  I'm CUS-0005. Convert 6000 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 6463.04 +/-0.02, and the same figure in the answer
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0005', 'name': 'Emma Rossi', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1006', 'customer_id': 'CUS-0005', 'currency': 'EUR', 'balance': 12400.0, 'tier':
+                'tier2', 'holder': 'Emma Rossi'}]
+      tool      quote_fx(customer_id=CUS-0005, amount=6000, from_currency=EUR, to_currency=USD)
+                -> final_amount=6463.043478, from_currency=EUR, to_currency=USD, amount=6000,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.9, allowance_total_eur=1000,
+                allowance_used_before_eur=5000.0, allowance_applied=False, gross_amount=6521.73913, …
+      verdict   quote_fx.final_amount = 6463.043478
+      answer    What I did
+                - I retrieved your account (ACC-1006, EUR) and ran an FX quote to convert EUR 6,000 → USD.
+                What I found (quote components)
+                - Mid market rate: 1.086957 USD per EUR
+                - Tier spread: 0.9% (spread applied; no free allowance remaining)
+                - Allowance total (EUR): 1,000 — allowance used before this quote: 5,000 → allowance_applie …
+
+PASS  FX-003-S   L3 generation  contains  15.5s, 5700 tokens
+      question  I'm CUS-0005. What spread applies to a 6000 EUR conversion to USD?
+      expected  answer contains '0.9%'
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0005', 'name': 'Emma Rossi', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1006', 'customer_id': 'CUS-0005', 'currency': 'EUR', 'balance': 12400.0, 'tier':
+                'tier2', 'holder': 'Emma Rossi'}]
+      tool      quote_fx(customer_id=CUS-0005, amount=6000, from_currency=EUR, to_currency=USD)
+                -> from_currency=EUR, to_currency=USD, amount=6000, mid_rate=1.086957, tier=tier2,
+                spread_pct=0.9, allowance_total_eur=1000, allowance_used_before_eur=5000.0,
+                allowance_applied=False, gross_amount=6521.73913, spread_amount=58.695652, …
+      verdict   ok
+      answer    What I did
+                - Retrieved your customer record (CUS-0005) and ran an FX quote for a 6,000.00 EUR → USD
+                conversion.
+                What I found
+                - Mid-market rate: 1.086957
+                - Your tier: tier2 …
+
+PASS  FX-005     L2 generation  tool_grounded_numeric  12.6s, 5653 tokens
+      question  I'm CUS-0010. Convert 5000 GBP to EUR. What is the final amount I receive?
+      expected  quote_fx.final_amount = 5820.75 +/-0.02, and the same figure in the answer
+      tool      get_account()
+                -> customer={'id': 'CUS-0010', 'name': 'Jonas Weber', 'tier': 'tier3'}, accounts=[{'id':
+                'ACC-1011', 'customer_id': 'CUS-0010', 'currency': 'GBP', 'balance': 61200.0, 'tier':
+                'tier3', 'holder': 'Jonas Weber'}]
+      tool      quote_fx(customer_id=CUS-0010, amount=5000, from_currency=GBP, to_currency=EUR)
+                -> final_amount=5820.75, from_currency=GBP, to_currency=EUR, amount=5000, mid_rate=1.17,
+                tier=tier3, spread_pct=0.5, allowance_total_eur=5000, allowance_used_before_eur=15000.0,
+                allowance_applied=False, gross_amount=5850.0, spread_amount=29.25
+      verdict   quote_fx.final_amount = 5820.75
+      answer    What I did
+                - Retrieved your account (ACC-1011, GBP) and requested an FX quote for 5,000 GBP → EUR.
+                What I found (quote components)
+                - Mid-market rate: 1.17
+                - Tier spread: 0.50%
+                - Allowance total (EUR): 5,000 …
+
+PASS  LIM-001    L2 generation  numeric  7.4s, 4889 tokens
+      question  I'm CUS-0010. How much of my MONTHLY transfer limit is left?
+      expected  964666.0 +/-1.0 in the answer
+      tool      get_account()
+                -> customer={'id': 'CUS-0010', 'name': 'Jonas Weber', 'tier': 'tier3'}, accounts=[{'id':
+                'ACC-1011', 'customer_id': 'CUS-0010', 'currency': 'GBP', 'balance': 61200.0, 'tier':
+                'tier3', 'holder': 'Jonas Weber'}]
+      tool      check_limits(customer_id=CUS-0010)
+                -> tier=tier3, as_of=2026-09-15, daily_limit_eur=100000, daily_spent_eur=4914.0,
+                daily_remaining_eur=95086.0, monthly_limit_eur=1000000, monthly_spent_eur=35334.0,
+                monthly_remaining_eur=964666.0
+      verdict   ok
+      answer    What I did
+                - Retrieved your customer record and current transfer limits.
+                What I found (EUR equivalent, as of 2026-09-15)
+                - Monthly limit: EUR 1,000,000
+                - Monthly spent: EUR 35,334
+                - Monthly remaining: EUR 964,666 …
+
+PASS  LIM-003    L2 action      tool_result_numeric  9.8s, 4981 tokens
+      question  I'm CUS-0010. How much of my monthly transfer limit is left?
+      expected  check_limits.monthly_remaining_eur = 964666.0 +/-1.0
+      tool      get_account(account_id=None)
+                -> customer={'id': 'CUS-0010', 'name': 'Jonas Weber', 'tier': 'tier3'}, accounts=[{'id':
+                'ACC-1011', 'customer_id': 'CUS-0010', 'currency': 'GBP', 'balance': 61200.0, 'tier':
+                'tier3', 'holder': 'Jonas Weber'}]
+      tool      check_limits(customer_id=CUS-0010)
+                -> monthly_remaining_eur=964666.0, tier=tier3, as_of=2026-09-15, daily_limit_eur=100000,
+                daily_spent_eur=4914.0, daily_remaining_eur=95086.0, monthly_limit_eur=1000000,
+                monthly_spent_eur=35334.0
+      verdict   check_limits.monthly_remaining_eur = 964666.0
+      answer    What I did
+                - Retrieved your customer record and checked your current transfer limits.
+                What I found
+                - Monthly transfer limit (EUR): 1,000,000.00
+                - Monthly spent (EUR): 35,334.00
+                - Monthly remaining (EUR): 964,666.00 …
+
+PASS  DIS-001    L3 generation  contains  12.9s, 5582 tokens
+      question  Transaction TX-0401 was on 20 July 2026. Reason: duplicate charge. What is the dispute window
+                for this reason code, in days?
+      expected  answer contains '60 days'
+      tool      get_account()
+                -> customer={'id': 'CUS-0004', 'name': 'Danylo Kovalenko', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1005', 'customer_id': 'CUS-0004', 'currency': 'EUR', 'balance': 1310.2, 'tier': 'tier1',
+                'holder': 'Danylo Kovalenko'}]
+      tool      search_knowledge_base(query=duplicate_charge dispute window days duplicate charge dispute
+                window days Verta documentation)
+                -> index=kb_clean, top_k=4, query=duplicate_charge dispute window days duplicate charge
+                dispute window days Verta documentation, fragments=[{'id': 'disputes.md#s1', 'doc':
+                'disputes.md', 'score': 1.206, 'text': 'Payment dispute rules\n## Reason codes and chargeba …
+      verdict   ok
+      answer    What I checked: I looked up Verta's dispute rules in our documentation.
+                What I found: The dispute window for reason code "duplicate_charge" is 60 days from the
+                transaction date.
+                What happens next: If you want, I can check whether transaction TX-0401 (20 July 2026) is
+                still eligible — I will run a dispute-eligibility check for that transaction before any
+                dispute can be opened. Shall I proceed?
+
+PASS  DIS-006    L1 action      tool_result_flag  15.1s, 5476 tokens
+      question  Check whether transaction TX-0402 can be disputed under duplicate charge.
+      expected  check_dispute_eligibility.eligible = False
+      tool      get_account()
+                -> customer={'id': 'CUS-0004', 'name': 'Danylo Kovalenko', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1005', 'customer_id': 'CUS-0004', 'currency': 'EUR', 'balance': 1310.2, 'tier': 'tier1',
+                'holder': 'Danylo Kovalenko'}]
+      tool      check_dispute_eligibility(transaction_id=TX-0402, reason_code=duplicate_charge)
+                -> eligible=False, reason_code=duplicate_charge, window_days=60, tx_date=2026-07-14,
+                as_of=2026-09-15, deadline=2026-09-12, checks={'reason_code': 'pass', 'tx_status': 'pass',
+                'window': 'fail: window of 60 days expired on 2026-09-12', 'compliance_hold': 'pass'}
+      verdict   check_dispute_eligibility.eligible = False
+      answer    What I did
+                - Checked dispute eligibility for transaction TX-0402 under reason code "duplicate_charge."
+                What I found
+                - Eligibility: not eligible to open a dispute.
+                - Reason: the 60-day dispute window has expired. Transaction date: 2026-07-14; deadline for a
+                duplicate-charge dispute: 2026-09-12 (status checked as of 2026-09-15). …
+
+PASS  DIS-007    L1 action      tool_result_flag  11.9s, 6741 tokens
+      question  Check whether transaction TX-0601 can be disputed under goods not received.
+      expected  check_dispute_eligibility.eligible = False
+      tool      get_account()
+                -> customer={'id': 'CUS-0006', 'name': 'Farid Aliyev', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1007', 'customer_id': 'CUS-0006', 'currency': 'EUR', 'balance': 3050.0, 'tier': 'tier1',
+                'holder': 'Farid Aliyev'}]
+      tool      check_dispute_eligibility(transaction_id=TX-0601, reason_code=goods_not_received)
+                -> eligible=False, reason_code=goods_not_received, window_days=90, tx_date=2026-08-16,
+                as_of=2026-09-15, deadline=2026-11-14, checks={'reason_code': 'pass', 'tx_status': 'pass',
+                'window': 'pass', 'compliance_hold': 'fail: a customer-level restriction applies; escalatio …
+      tool      escalate_to_human(customer_id=CUS-0006, reason=Dispute check for TX-0601 (goods_not_received)
+                blocked by a customer-level restriction; escalation required before proceeding.)
+                -> escalation_id=1, status=queued
+      verdict   check_dispute_eligibility.eligible = False
+      answer    What I did
+                - Retrieved your account (Farid Aliyev, customer CUS-0006).
+                - Checked dispute eligibility for transaction TX-0601 under reason "goods_not_received".
+                - Escalated to a human agent because the eligibility check reported a customer-level
+                restriction.
+                What I found …
+
+PASS  FX-006     L2 generation  tool_grounded_numeric  17.1s, 6127 tokens
+      question  I'm CUS-0007. Convert 1000 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 1086.96 +/-0.02, and the same figure in the answer
+      tool      get_account()
+                -> customer={'id': 'CUS-0007', 'name': 'Greta Lindqvist', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1008', 'customer_id': 'CUS-0007', 'currency': 'EUR', 'balance': 27600.0, 'tier':
+                'tier2', 'holder': 'Greta Lindqvist'}]
+      tool      quote_fx(customer_id=CUS-0007, amount=1000, from_currency=EUR, to_currency=USD)
+                -> final_amount=1086.956522, from_currency=EUR, to_currency=USD, amount=1000,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.0, allowance_total_eur=1000,
+                allowance_used_before_eur=0.0, allowance_applied=True, gross_amount=1086.956522, …
+      verdict   quote_fx.final_amount = 1086.956522
+      answer    What I did
+                - Retrieved your customer and account (CUS-0007 / account ACC-1008 — EUR balance 27,600.00).
+                - Requested an FX quote to convert 1,000.00 EUR → USD.
+                What I found (quote components)
+                - Mid-market rate: 1.086957
+                - Tier spread: 0.0% …
+
+PASS  FX-006-S   L2 action      tool_result_numeric  11.9s, 5460 tokens
+      question  I'm CUS-0007. Obtain an FX quote for 1000 EUR to USD and report the applied spread
+                percentage. Do not execute a conversion.
+      expected  quote_fx.spread_pct = 0.0 +/-0
+      tool      get_account()
+                -> customer={'id': 'CUS-0007', 'name': 'Greta Lindqvist', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1008', 'customer_id': 'CUS-0007', 'currency': 'EUR', 'balance': 27600.0, 'tier':
+                'tier2', 'holder': 'Greta Lindqvist'}]
+      tool      quote_fx(customer_id=CUS-0007, amount=1000, from_currency=EUR, to_currency=USD)
+                -> spread_pct=0.0, from_currency=EUR, to_currency=USD, amount=1000, mid_rate=1.086957,
+                tier=tier2, allowance_total_eur=1000, allowance_used_before_eur=0.0, allowance_applied=True,
+                gross_amount=1086.956522, spread_amount=0.0, final_amount=1086.956522
+      verdict   quote_fx.spread_pct = 0.0
+      answer    What I did
+                - Retrieved your account (ACC-1008, EUR) and requested an FX quote for 1,000.00 EUR → USD.
+                What I found (quote components)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Tier: tier2
+                - Spread applied: 0.0% …
+
+PASS  FX-007     L2 generation  tool_grounded_numeric  19.1s, 7502 tokens
+      question  I'm CUS-0007. Convert 1001 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 1078.25 +/-0.02, and the same figure in the answer
+      tool      get_account(account_id=CUS-0007)
+                -> error=account CUS-0007 not found for CUS-0007
+      tool      get_account()
+                -> customer={'id': 'CUS-0007', 'name': 'Greta Lindqvist', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1008', 'customer_id': 'CUS-0007', 'currency': 'EUR', 'balance': 27600.0, 'tier':
+                'tier2', 'holder': 'Greta Lindqvist'}]
+      tool      quote_fx(customer_id=CUS-0007, amount=1001, from_currency=EUR, to_currency=USD)
+                -> final_amount=1078.251087, from_currency=EUR, to_currency=USD, amount=1001,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.9, allowance_total_eur=1000,
+                allowance_used_before_eur=0.0, allowance_applied=False, gross_amount=1088.043478, …
+      verdict   quote_fx.final_amount = 1078.251087
+      answer    What I did
+                - Retrieved your account (ACC-1008, EUR) and requested an FX quote for 1,001 EUR → USD.
+                What I found (quote components)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Tier spread: 0.9% (tier2)
+                - Free allowance on file: 1,000 EUR (unused before this quote); quote shows …
+
+PASS  FX-007-S   L2 action      tool_result_numeric  19.7s, 5951 tokens
+      question  I'm CUS-0007. Obtain an FX quote for 1001 EUR to USD and report the applied spread
+                percentage. Do not execute a conversion.
+      expected  quote_fx.spread_pct = 0.9 +/-0
+      tool      get_account()
+                -> customer={'id': 'CUS-0007', 'name': 'Greta Lindqvist', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1008', 'customer_id': 'CUS-0007', 'currency': 'EUR', 'balance': 27600.0, 'tier':
+                'tier2', 'holder': 'Greta Lindqvist'}]
+      tool      quote_fx(customer_id=CUS-0007, amount=1001, from_currency=EUR, to_currency=USD)
+                -> spread_pct=0.9, from_currency=EUR, to_currency=USD, amount=1001, mid_rate=1.086957,
+                tier=tier2, allowance_total_eur=1000, allowance_used_before_eur=0.0, allowance_applied=False,
+                gross_amount=1088.043478, spread_amount=9.792391, final_amount=1078.251087
+      verdict   quote_fx.spread_pct = 0.9
+      answer    What I did
+                - Retrieved your account (CUS-0007) and requested an FX quote for 1001 EUR → USD. I did not
+                execute a conversion.
+                What I found (quote)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Applied spread: 0.9% …
+
+PASS  FX-008     L2 generation  tool_grounded_numeric  17.2s, 7025 tokens
+      question  I'm CUS-0001. Convert 380 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 413.04 +/-0.02, and the same figure in the answer
+      tool      get_account(account_id=, =)
+                -> error=bad arguments for get_account: get_account() got an unexpected keyword argument ''
+      tool      get_account()
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      quote_fx(customer_id=CUS-0001, amount=380, from_currency=EUR, to_currency=USD)
+                -> final_amount=413.043478, from_currency=EUR, to_currency=USD, amount=380,
+                mid_rate=1.086957, tier=tier1, spread_pct=0.0, allowance_total_eur=500,
+                allowance_used_before_eur=120.0, allowance_applied=True, gross_amount=413.043478, …
+      verdict   quote_fx.final_amount = 413.043478
+      answer    I pulled your account (ACC-1001) and ran an FX quote for converting 380.00 EUR → USD.
+                What I did
+                - Retrieved your account details and requested a full FX quote for 380 EUR.
+                What I found (quote components)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Tier spread: 0.0% …
+
+PASS  FX-008-S   L2 action      tool_result_numeric  14.1s, 5702 tokens
+      question  I'm CUS-0001. Obtain an FX quote for 380 EUR to USD and report the applied spread percentage.
+                Do not execute a conversion.
+      expected  quote_fx.spread_pct = 0.0 +/-0
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      quote_fx(customer_id=CUS-0001, amount=380, from_currency=EUR, to_currency=USD)
+                -> spread_pct=0.0, from_currency=EUR, to_currency=USD, amount=380, mid_rate=1.086957,
+                tier=tier1, allowance_total_eur=500, allowance_used_before_eur=120.0, allowance_applied=True,
+                gross_amount=413.043478, spread_amount=0.0, final_amount=413.043478
+      verdict   quote_fx.spread_pct = 0.0
+      answer    What I did
+                - Retrieved your customer and account (CUS-0001 / Alice Novak; account ACC-1001).
+                - Requested an FX quote for 380.00 EUR → USD (no conversion executed).
+                What I found (quote components)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Applied spread: 0.0% (spread amount = 0.00 USD) …
+
+PASS  FX-009     L2 generation  tool_grounded_numeric  13.7s, 5763 tokens
+      question  I'm CUS-0001. Convert 381 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 407.92 +/-0.02, and the same figure in the answer
+      tool      get_account()
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      quote_fx(customer_id=CUS-0001, amount=381, from_currency=EUR, to_currency=USD)
+                -> final_amount=407.918478, from_currency=EUR, to_currency=USD, amount=381,
+                mid_rate=1.086957, tier=tier1, spread_pct=1.5, allowance_total_eur=500,
+                allowance_used_before_eur=120.0, allowance_applied=False, gross_amount=414.130435, …
+      verdict   quote_fx.final_amount = 407.918478
+      answer    What I did
+                - I pulled your account (CUS-0001, EUR account ACC-1001) and ran an FX quote to convert 381
+                EUR → USD.
+                What I found (components & calculation)
+                - Mid-market rate: 1.086957
+                - Tier spread: 1.5% (applied) …
+
+PASS  FX-009-S   L2 action      tool_result_numeric  13.7s, 5502 tokens
+      question  I'm CUS-0001. Obtain an FX quote for 381 EUR to USD and report the applied spread percentage.
+                Do not execute a conversion.
+      expected  quote_fx.spread_pct = 1.5 +/-0
+      tool      get_account()
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      quote_fx(customer_id=CUS-0001, amount=381, from_currency=EUR, to_currency=USD)
+                -> spread_pct=1.5, from_currency=EUR, to_currency=USD, amount=381, mid_rate=1.086957,
+                tier=tier1, allowance_total_eur=500, allowance_used_before_eur=120.0,
+                allowance_applied=False, gross_amount=414.130435, spread_amount=6.211957, …
+      verdict   quote_fx.spread_pct = 1.5
+      answer    What I did
+                - Retrieved your account (ACC-1001) and requested an FX quote for 381 EUR → USD. I did not
+                execute any conversion.
+                What I found (quote components)
+                - Amount: 381.00 EUR
+                - Mid-market rate: 1.086957 USD/EUR …
+
+PASS  FX-010     L2 generation  tool_grounded_numeric  22.0s, 7566 tokens
+      question  I'm CUS-0002. Convert 200 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 217.39 +/-0.02, and the same figure in the answer
+      tool      get_account(account_id=CUS-0002)
+                -> error=account CUS-0002 not found for CUS-0002
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      quote_fx(customer_id=CUS-0002, amount=200, from_currency=EUR, to_currency=USD)
+                -> final_amount=217.391304, from_currency=EUR, to_currency=USD, amount=200,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.0, allowance_total_eur=1000,
+                allowance_used_before_eur=800.0, allowance_applied=True, gross_amount=217.391304, …
+      verdict   quote_fx.final_amount = 217.391304
+      answer    What I did
+                - Retrieved your customer/accounts record and requested an FX quote to convert 200 EUR → USD.
+                What I found (quote breakdown)
+                - Mid-market rate: 1.086957 USD per EUR
+                - Tier: tier2
+                - Spread: 0.0% …
+
+PASS  FX-010-S   L2 action      tool_result_numeric  15.5s, 5665 tokens
+      question  I'm CUS-0002. Obtain an FX quote for 200 EUR to USD and report the applied spread percentage.
+                Do not execute a conversion.
+      expected  quote_fx.spread_pct = 0.0 +/-0
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      quote_fx(customer_id=CUS-0002, amount=200, from_currency=EUR, to_currency=USD)
+                -> spread_pct=0.0, from_currency=EUR, to_currency=USD, amount=200, mid_rate=1.086957,
+                tier=tier2, allowance_total_eur=1000, allowance_used_before_eur=800.0,
+                allowance_applied=True, gross_amount=217.391304, spread_amount=0.0, final_amount=217.391304
+      verdict   quote_fx.spread_pct = 0.0
+      answer    What I did
+                - Retrieved your customer record (CUS-0002) and requested an FX quote for 200 EUR → USD.
+                What I found (quote details)
+                - Customer tier: tier2
+                - Mid rate: 1.086957
+                - Spread applied: 0.0% (no spread) …
+
+PASS  FX-011     L2 generation  tool_grounded_numeric  14.2s, 5907 tokens
+      question  I'm CUS-0002. Convert 201 EUR to USD. What is the final amount I receive?
+      expected  quote_fx.final_amount = 216.51 +/-0.02, and the same figure in the answer
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      quote_fx(customer_id=CUS-0002, amount=201, from_currency=EUR, to_currency=USD)
+                -> final_amount=216.511957, from_currency=EUR, to_currency=USD, amount=201,
+                mid_rate=1.086957, tier=tier2, spread_pct=0.9, allowance_total_eur=1000,
+                allowance_used_before_eur=800.0, allowance_applied=False, gross_amount=218.478261, …
+      verdict   quote_fx.final_amount = 216.511957
+      answer    What I did
+                - Retrieved your account (CUS-0002) and ran an FX quote to convert 201.00 EUR → USD.
+                What I found (quote components)
+                - Mid-market rate: 1.086957
+                - Your tier: tier2 — spread: 0.9%
+                - Gross (201 × mid rate): 218.478261 USD …
+
+PASS  FX-011-S   L2 action      tool_result_numeric  12.3s, 5624 tokens
+      question  I'm CUS-0002. Obtain an FX quote for 201 EUR to USD and report the applied spread percentage.
+                Do not execute a conversion.
+      expected  quote_fx.spread_pct = 0.9 +/-0
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      quote_fx(customer_id=CUS-0002, amount=201, from_currency=EUR, to_currency=USD)
+                -> spread_pct=0.9, from_currency=EUR, to_currency=USD, amount=201, mid_rate=1.086957,
+                tier=tier2, allowance_total_eur=1000, allowance_used_before_eur=800.0,
+                allowance_applied=False, gross_amount=218.478261, spread_amount=1.966304, …
+      verdict   quote_fx.spread_pct = 0.9
+      answer    What I did
+                - Retrieved an FX quote for 201.00 EUR → USD for customer CUS-0002.
+                What I found
+                - Mid-market rate: 1.086957
+                - Applied spread: 0.9% (this is the spread percentage you requested)
+                - Allowance: total allowance 1,000.00 EUR, allowance used before this quote 800.00 EUR, …
+
+PASS  HW2-C11    L2 action      tool_result_numeric  12.0s, 5385 tokens
+      question  Run an eligibility check for transaction TX-0902 under reason code fraud_card_not_present.
+                Report the applicable dispute window in days. Do not open a dispute.
+      expected  check_dispute_eligibility.window_days = 120 +/-0
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0009', 'name': 'Iryna Shevchuk', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1010', 'customer_id': 'CUS-0009', 'currency': 'EUR', 'balance': 1770.0, 'tier': 'tier1',
+                'holder': 'Iryna Shevchuk'}]
+      tool      check_dispute_eligibility(transaction_id=TX-0902, reason_code=fraud_card_not_present)
+                -> window_days=120, eligible=True, reason_code=fraud_card_not_present, tx_date=2026-09-12,
+                as_of=2026-09-15, deadline=2027-01-10, checks={'reason_code': 'pass', 'tx_status': 'pass',
+                'window': 'pass', 'compliance_hold': 'pass'}
+      verdict   check_dispute_eligibility.window_days = 120
+      answer    What I did
+                - Ran a dispute-eligibility check for transaction TX-0902 under reason code
+                fraud_card_not_present.
+                What I found
+                - Eligible: yes
+                - Applicable dispute window: 120 days …
+
+PASS  HW2-C12    L2 action      tool_result_numeric  12.8s, 5307 tokens
+      question  Run an eligibility check for transaction TX-0201 under reason code duplicate_charge. Report
+                the applicable dispute window in days. Do not open a dispute.
+      expected  check_dispute_eligibility.window_days = 60 +/-0
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      check_dispute_eligibility(transaction_id=TX-0201, reason_code=duplicate_charge)
+                -> window_days=60, eligible=True, reason_code=duplicate_charge, tx_date=2026-09-08,
+                as_of=2026-09-15, deadline=2026-11-07, checks={'reason_code': 'pass', 'tx_status': 'pass',
+                'window': 'pass', 'compliance_hold': 'pass'}
+      verdict   check_dispute_eligibility.window_days = 60
+      answer    What I did
+                - Ran a dispute-eligibility check for transaction TX-0201 under reason code
+                "duplicate_charge."
+                What I found (from the eligibility check)
+                - Eligible: yes
+                - Applicable dispute window: 60 days …
+
+PASS  HW2-C14    L3 generation  regex  9.6s, 3810 tokens
+      question  List all dispute reason codes using their exact identifiers, one code per line. On the
+                duplicate_charge line, also state its dispute window in days. Answer both parts.
+      expected  answer matches '(?is)\\A(?=.*\\bfraud[\\s_-]+card[\\s_-]+not[\\s_-
+                ]+present\\b)(?=.*\\bgoods[\\s_-]+not[\\s_-]+received\\b)(?=.*\\bduplicate[\\s_-
+                ]+charge\\b)(?=.*\\bservice[\\s_-]+not[\\s_-]+rendered\\b)(?=.*\\bunauthorized[\\s_- …
+      tool      search_knowledge_base(query=dispute reason codes list duplicate_charge window days
+                unauthorized_debit fraud_card_not_present goods_not_received service_not_rendered …
+                -> index=kb_clean, top_k=4, query=dispute reason codes list duplicate_charge window days
+                unauthorized_debit fraud_card_not_present goods_not_received service_not_rendered
+                duplicate_charge window days Verta dispute codes, fragments=[{'id': 'disputes.md#s1', 'doc' …
+      verdict   ok
+      answer    I searched Verta's dispute documentation and found these reason codes.
+                fraud_card_not_present
+                goods_not_received
+                duplicate_charge — 60 days
+                service_not_rendered
+                unauthorized_debit …
+
+PASS  RET-H01    L3 retrieval   contains  21.5s, 6640 tokens
+      question  Search the Verta documentation and copy the FX spread and free monthly conversion allowance
+                table for all tiers. Return its three data rows verbatim, in corpus order, as plain text
+                without bullets or a header.
+      expected  answer contains '| Tier 1 | 1.5% | EUR 500 |\n| Tier 2 | 0.9% | EUR 1,000 |\n| Tier 3 | 0.5%
+                | EUR 5,000 |'
+      tool      get_account()
+                -> customer={'id': 'CUS-0003', 'name': 'Clara Fischer', 'tier': 'tier3'}, accounts=[{'id':
+                'ACC-1004', 'customer_id': 'CUS-0003', 'currency': 'EUR', 'balance': 145000.0, 'tier':
+                'tier3', 'holder': 'Clara Fischer'}]
+      tool      search_knowledge_base(query=FX spread free monthly conversion allowance table tiers)
+                -> index=kb_clean, top_k=4, query=FX spread free monthly conversion allowance table tiers,
+                fragments=[{'id': 'fx-guide.md#s1', 'doc': 'fx-guide.md', 'score': 1.819, 'text': "Currency
+                conversion guide\n## How a conversion is priced\nA conversion quote has these components, i …
+      verdict   ok
+      answer    I searched the Verta documentation and copied the three data rows below.
+                | Tier 1 | 1.5% | EUR 500 |
+                | Tier 2 | 0.9% | EUR 1,000 |
+                | Tier 3 | 0.5% | EUR 5,000 |
+
+PASS  RET-H02    L3 retrieval   contains  8.6s, 5366 tokens
+      question  Search Verta documentation for all dispute reason codes and the duplicate_charge window. List
+                the codes in corpus order, one identifier per line, without bullets. On the duplicate_charge
+                line append ': <window> days'. Other lines must contain only the identifier. Answer both …
+      expected  answer contains 'fraud_card_not_present\ngoods_not_received\nduplicate_charge: 60
+                days\nservice_not_rendered\nunauthorized_debit'
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      search_knowledge_base(query=dispute reason codes duplicate_charge window)
+                -> index=kb_clean, top_k=4, query=dispute reason codes duplicate_charge window,
+                fragments=[{'id': 'disputes.md#s1', 'doc': 'disputes.md', 'score': 1.5076, 'text': 'Payment
+                dispute rules\n## Reason codes and chargeback windows\nEach reason code has a window in day …
+      verdict   ok
+      answer    fraud_card_not_present
+                goods_not_received
+                duplicate_charge: 60 days
+                service_not_rendered
+                unauthorized_debit
+
+PASS  RET-H03    L3 retrieval   contains  10.0s, 5498 tokens
+      question  Search the Verta tariff documentation. What are both components of the outgoing SWIFT
+                transfer fee? Give the fee as 'EUR <fixed amount with two decimals> + <percentage>%'. Do not
+                calculate a fee for a particular transfer.
+      expected  answer contains 'EUR 15.00 + 0.3%'
+      tool      get_account(account_id=)
+                -> customer={'id': 'CUS-0008', 'name': 'Hugo Martins', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1009', 'customer_id': 'CUS-0008', 'currency': 'EUR', 'balance': 940.1, 'tier': 'tier1',
+                'holder': 'Hugo Martins'}]
+      tool      search_knowledge_base(query=outgoing SWIFT transfer fee tariff Verta components fixed fee
+                percentage outgoing SWIFT fee)
+                -> index=kb_clean, top_k=4, query=outgoing SWIFT transfer fee tariff Verta components fixed
+                fee percentage outgoing SWIFT fee, fragments=[{'id': 'tariffs.md#s3', 'doc': 'tariffs.md',
+                'score': 1.5714, 'text': 'Verta tariff schedule\n## Transfer fees by type\n| Transfer type  …
+      verdict   ok
+      answer    What I did: I searched the Verta tariff documentation.
+                What I found: Outgoing SWIFT transfers carry a flat fee plus a percentage: EUR 15.00 + 0.3%
+                (the percentage is applied to the EUR equivalent of the transfer).
+                What happens next: If you want this applied to a specific transfer amount, tell me the amount
+                and currencies and I can quote the total fee.
+
+PASS  RET-H04    L3 retrieval   contains  9.2s, 5521 tokens
+      question  Search Verta documentation: what fixed fee in EUR is charged for a SEPA transfer? State the
+                EUR amount with two decimal places.
+      expected  answer contains 'EUR 0.35'
+      tool      get_account()
+                -> customer={'id': 'CUS-0001', 'name': 'Alice Novak', 'tier': 'tier1'}, accounts=[{'id':
+                'ACC-1001', 'customer_id': 'CUS-0001', 'currency': 'EUR', 'balance': 2450.3, 'tier': 'tier1',
+                'holder': 'Alice Novak'}]
+      tool      search_knowledge_base(query=SEPA transfer fixed fee EUR)
+                -> index=kb_clean, top_k=4, query=SEPA transfer fixed fee EUR, fragments=[{'id':
+                'tariffs.md#s3', 'doc': 'tariffs.md', 'score': 1.7143, 'text': 'Verta tariff schedule\n##
+                Transfer fees by type\n| Transfer type | Flat fee | Percentage fee |\n|---|---|---|\n| …
+      verdict   ok
+      answer    What I did: searched Verta's tariff documentation (tariffs).
+                What I found: the SEPA transfer flat fee is EUR 0.35.
+                What happens next: I can send the full tariff schedule to your registered email or look up
+                other fees — tell me which you prefer.
+
+PASS  RET-H05    L3 retrieval   contains  9.3s, 5544 tokens
+      question  Search the Verta tariff schedule. What percentage fee is listed for a card payment? State the
+                number followed immediately by the percent sign.
+      expected  answer contains '1.2%'
+      tool      get_account()
+                -> customer={'id': 'CUS-0002', 'name': 'Borys Tkachenko', 'tier': 'tier2'}, accounts=[{'id':
+                'ACC-1002', 'customer_id': 'CUS-0002', 'currency': 'EUR', 'balance': 8900.0, 'tier': 'tier2',
+                'holder': 'Borys Tkachenko'}, {'id': 'ACC-1003', 'customer_id': 'CUS-0002', 'currency': …
+      tool      search_knowledge_base(query=tariff schedule card payment percentage fee Verta tariff card
+                payment fee percentage)
+                -> index=kb_clean, top_k=4, query=tariff schedule card payment percentage fee Verta tariff
+                card payment fee percentage, fragments=[{'id': 'fees-detail.md#s2', 'doc': 'fees-detail.md',
+                'score': 1.8353, 'text': 'Fee details\n## Card payment fee\nCard payments carry a percentag …
+      verdict   ok
+      answer    1.2%
+                I searched the Verta tariff schedule and found a 1.2% percentage fee for card payments. No
+                further action required.
+
+PASS  RET-H06    L3 retrieval   contains  7.8s, 3765 tokens
+      question  Search Verta documentation for Tier 1 outgoing transfer limits. Give both the daily and
+                monthly limits as 'EUR <daily amount> / EUR <monthly amount>', using commas as thousands
+                separators.
+      expected  answer contains 'EUR 5,000 / EUR 50,000'
+      tool      search_knowledge_base(query=Tier 1 outgoing transfer limits)
+                -> index=kb_clean, top_k=4, query=Tier 1 outgoing transfer limits, fragments=[{'id':
+                'glossary.md#s6', 'doc': 'glossary.md', 'score': 1.6681, 'text': 'Glossary\n## Tier\nThe
+                tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines\nspreads, …
+      verdict   ok
+      answer    What I did: searched Verta documentation for Tier 1 outgoing transfer limits.
+                What I found: EUR 5,000 / EUR 50,000.
+                What happens next: I can check your account’s current daily and monthly remainders if you’d
+                like — shall I do that?
+
+PASS  RET-H07    L3 retrieval   contains  8.6s, 3668 tokens
+      question  Search the Verta dispute rules. What is the dispute window for unauthorized_debit? State the
+                number followed by 'days'.
+      expected  answer contains '56 days'
+      tool      search_knowledge_base(query=dispute window unauthorized_debit)
+                -> index=kb_clean, top_k=4, query=dispute window unauthorized_debit, fragments=[{'id':
+                'disputes.md#s1', 'doc': 'disputes.md', 'score': 0.9045, 'text': 'Payment dispute rules\n##
+                Reason codes and chargeback windows\nEach reason code has a window in days from the …
+      verdict   ok
+      answer    I searched the Verta dispute rules and found the window for unauthorized_debit is 56 days.
+                56 days
+                Next: if you want to open a dispute, provide the transaction ID and I will check eligibility.
+
+PASS  RET-H08    L3 retrieval   contains  8.0s, 3616 tokens
+      question  Search the Verta dispute documentation. What transaction status is required by the dispute
+                eligibility conditions? Answer with the exact status word used in the document.
+      expected  answer contains 'settled'
+      tool      search_knowledge_base(query=dispute eligibility conditions transaction status required
+                "status" site:verta dispute documentation)
+                -> index=kb_clean, top_k=4, query=dispute eligibility conditions transaction status required
+                "status" site:verta dispute documentation, fragments=[{'id': 'disputes.md#s2', 'doc':
+                'disputes.md', 'score': 0.889, 'text': "Payment dispute rules\n## Eligibility conditions\nA …
+      verdict   ok
+      answer    settled
+
+PASS  RET-H09    L3 retrieval   contains  8.3s, 3619 tokens
+      question  From Verta documentation, quote the sentence describing what must happen when a dispute is
+                blocked by a customer-level restriction. This is a documentation question only; do not open a
+                dispute or perform an escalation.
+      expected  answer contains 'escalated to a human agent'
+      tool      search_knowledge_base(query=dispute blocked by a customer-level restriction must happen when
+                a dispute is blocked by a customer-level restriction)
+                -> index=kb_clean, top_k=4, query=dispute blocked by a customer-level restriction must happen
+                when a dispute is blocked by a customer-level restriction, fragments=[{'id':
+                'disputes.md#s3', 'doc': 'disputes.md', 'score': 2.7456, 'text': 'Payment dispute rules\n## …
+      verdict   ok
+      answer    "When a dispute is blocked by a customer-level restriction, the case must be escalated to a
+                human agent." (source: disputes.md — "Payment dispute rules / Escalation on blocked
+                disputes")
+
+PASS  RET-H10    L3 retrieval   contains  8.4s, 3650 tokens
+      question  Search the Verta transfer-limit documentation and quote the short rule explaining whether a
+                transfer is refused when it exceeds either the daily or monthly remainder, or only when it
+                exceeds both.
+      expected  answer contains 'exceeds either remainder'
+      tool      search_knowledge_base(query=transfer refused exceeds daily or monthly remainder rule transfer
+                limits daily monthly remainder Verta documentation)
+                -> index=kb_clean, top_k=4, query=transfer refused exceeds daily or monthly remainder rule
+                transfer limits daily monthly remainder Verta documentation, fragments=[{'id':
+                'limits.md#s2', 'doc': 'limits.md', 'score': 1.9379, 'text': 'Transfer limits\n## How the …
+      verdict   ok
+      answer    I searched the Verta transfer-limit documentation and found this rule. Quote:
+                "A transfer is refused when it exceeds either remainder."
+                What happens next: I can show the longer passage from the limits page or locate where this is
+                documented in your account tier if you want—tell me which.
+
+------------------------------------------------------------------------
+37/37 passed   elapsed 494.6s
+  action       11/11
+  generation   16/16
+  retrieval    10/10
+report -> evals/reports/golden-clean-20261024T213319.json
+mois@MacBook-Pro-de-Ida l03 % 
