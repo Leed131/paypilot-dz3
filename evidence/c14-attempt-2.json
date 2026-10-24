@@ -1,0 +1,75 @@
+{
+  "complaint_id": "C-14",
+  "attempt": 2,
+  "date": "2026-10-24",
+  "trace_id": "d45c25f7",
+  "source": "User-provided agent.request JSON, first search JSON and screenshot showing complete tool timeline and answer.",
+  "request": "List all dispute reason codes using their exact identifiers, one code per line. On the duplicate_charge line, also state its dispute window in days. Answer both parts.",
+  "test_context_note": "HW2-C14 reconstruction with CUS-0002; original complaint has no identified customer or verbatim user prompt.",
+  "attributes": {
+    "session.id": "1097dae1d263",
+    "dialog.step_number": 1,
+    "run.profile": "lesson-04",
+    "run.active_defects": [
+      "D05",
+      "D16",
+      "D17"
+    ],
+    "prompt.version": "base.v1+D05",
+    "reply.language_detected": "",
+    "llm.provider": "openai",
+    "session.customer_id": "CUS-0002",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 4699,
+    "gen_ai.usage.total_output_tokens": 1309
+  },
+  "duration_ms": 18049.1,
+  "steps": [
+    "llm.call 0",
+    "search_knowledge_base (disputes.md#b1)",
+    "llm.call 1",
+    "search_knowledge_base (disputes.md#b2)",
+    "llm.call 2"
+  ],
+  "first_search": {
+    "tool.name": "search_knowledge_base",
+    "tool.arguments": {
+      "query": "dispute reason codes list duplicate_charge window days"
+    },
+    "tool.result": {
+      "index": "kb_broken",
+      "top_k": 1,
+      "query": "dispute reason codes list duplicate_charge window days",
+      "fragments": [
+        {
+          "id": "disputes.md#b1",
+          "doc": "disputes.md",
+          "score": 1.3728,
+          "text": "# Payment dispute rules ## Reason codes and chargeback windows Each reason code has a window in days from the transaction date. A dispute opened after the windo"
+        }
+      ]
+    }
+  },
+  "second_search_screenshot_preview": {
+    "id": "disputes.md#b2",
+    "index": "kb_broken",
+    "top_k": 1,
+    "score": 1,
+    "text": "w closes is not eligible. | Reason code | Window (days) | |---|---| | fraud_card_not_present | 120 | | goods_not_received | 90 | | duplicate_charge | 60 | | ser",
+    "full_json_provided": false
+  },
+  "reply_transcribed_from_screenshot": "I searched the dispute documentation and found these reason codes. If you want to open a dispute, tell me the transaction ID and which reason code to use.\n\nfraud_card_not_present\ngoods_not_received\nduplicate_charge — 60 days\nservice_not_rendered\nunauthorized_debit",
+  "outcome": {
+    "answer_covers_both_requested_parts": true,
+    "original_missing_deadline_symptom_reproduced": false,
+    "reproduction_across_attempts": "0/2",
+    "complaint_status": "Не відтворюється у вибраному тестовому контексті за дві спроби",
+    "root_cause_classification": "Not assigned to original complaint because original missing-deadline symptom was not reproduced.",
+    "observed_alternative": "Retrieved previews are truncated; answer nonetheless includes all five valid codes and the correct deadline.",
+    "limits": [
+      "Second search's full JSON is not supplied; preserve it as preview evidence, not a full tool result.",
+      "Do not infer from the correct answer that the full reference was retrieved.",
+      "Reconstructed prompt explicitly requests both parts; this does not establish behavior for every wording of the original complaint."
+    ]
+  }
+}
