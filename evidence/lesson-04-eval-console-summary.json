@@ -1,0 +1,58 @@
+{
+  "source": "User-supplied terminal output and attached console excerpt; lesson-04 raw JSON not yet supplied",
+  "profile": "lesson-04",
+  "passed": 31,
+  "total": 37,
+  "elapsed_seconds": 530.5,
+  "by_layer": {
+    "action": {
+      "passed": 11,
+      "total": 11
+    },
+    "generation": {
+      "passed": 16,
+      "total": 16
+    },
+    "retrieval": {
+      "passed": 4,
+      "total": 10
+    }
+  },
+  "failed": [
+    "RET-H01",
+    "RET-H02",
+    "RET-H03",
+    "RET-H07",
+    "RET-H09",
+    "RET-H10"
+  ],
+  "reported_path": "evals/reports/golden-lesson-04-20261024T214702.json",
+  "set_hash_status": "Await lesson-04 raw JSON verification; clean raw JSON hash verified as bba68640a585",
+  "forecast": {
+    "retrieval_pass_expected": 8,
+    "expected_failures": [
+      "RET-H01",
+      "RET-H03"
+    ],
+    "additional_failures": [
+      "RET-H02",
+      "RET-H07",
+      "RET-H09",
+      "RET-H10"
+    ],
+    "forecast_commit": "81753a9decf97c22ff9eff6dbb9ef36353f7725f"
+  },
+  "preliminary_findings": {
+    "RET_H01": "Console shows four searches returning fx-guide.md#b2 and incomplete table response; full payload awaited.",
+    "RET_H02": "Console shows repeated searches and step budget exhaustion.",
+    "RET_H03": "Answer EUR 15.00 + 0.00%, corpus EUR 15.00 + 0.3%; tool payload required to distinguish unsupported generation from retrieved corruption.",
+    "RET_H07": "FAIL reported; complete case output not yet supplied.",
+    "RET_H09": "Answer quotes MUST call escalate_to_human for restriction, while contains demands escalated to a human agent. Semantically consistent action but quote includes prompt-like text beyond visible retrieval preview; source attribution pending.",
+    "RET_H10": "Answer correctly explains either, not both. Literal expected string absent; quoted retrieved fragment starts mid-sentence. One search tool call with unsupported top_k argument also errors, followed by successful retry."
+  },
+  "limitations": [
+    "Do not change golden.jsonl or overwrite original verdicts to match results.",
+    "Standard raw clean JSON caps many stored answers at 400 characters; tool results contain complete fragment text. It is not a complete dialogue transcript.",
+    "The terminal Docker help suggestion alone does not establish an infrastructure error; test summary exists. Shell exit code not supplied."
+  ]
+}
