@@ -1,0 +1,92 @@
+{
+  "experiment": "Three top_k values, three independent first-turn trials each",
+  "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
+  "metric_conventions": {
+    "recall": "Coverage of two requested facts in retrieved context; no-search trial is not applicable.",
+    "precision": "Target fragment occurrences divided by all returned occurrences over all searches, including repeats.",
+    "faithfulness": "Only the two requested numeric statements per complete answer.",
+    "completeness": "All three trials per group are retained, including the no-search failure.",
+    "cost": "Whole-turn input/output tokens; not billed cost."
+  },
+  "groups": [
+    {
+      "top_k": 3,
+      "complete_answers": "2/3",
+      "complete_with_one_search": "0/3",
+      "search_calls": [
+        0,
+        2,
+        2
+      ],
+      "recall_among_search_trials": "4/4 = 1; one no-search trial N/A",
+      "precision_among_search_trials": "4/12 = 1/3",
+      "mean_input_tokens": 5403.666666666667,
+      "mean_output_tokens": 1948.6666666666667,
+      "summary": "top-k-3-summary.json"
+    },
+    {
+      "top_k": 4,
+      "complete_answers": "3/3",
+      "complete_with_one_search": "3/3",
+      "search_calls": [
+        1,
+        1,
+        1
+      ],
+      "recall": "6/6 = 1",
+      "precision": "6/12 = 0.5",
+      "mean_input_tokens": 4688.666666666667,
+      "mean_output_tokens": 1972.6666666666667,
+      "summary": "top-k-4-summary.json"
+    },
+    {
+      "top_k": 5,
+      "complete_answers": "3/3",
+      "complete_with_one_search": "3/3",
+      "search_calls": [
+        1,
+        1,
+        1
+      ],
+      "recall": "6/6 = 1",
+      "precision": "6/15 = 0.4",
+      "mean_input_tokens": 4308.666666666667,
+      "mean_output_tokens": 1628.6666666666667,
+      "summary": "top-k-5-summary.json"
+    }
+  ],
+  "cost_observations": {
+    "top_k5_minus_top_k4_mean_input_tokens": -380,
+    "top_k5_account_call_counts": [
+      1,
+      1,
+      0
+    ],
+    "top_k4_account_call_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_two_trials_with_same_tool_route": {
+      "top_k4_mean_input": 4684,
+      "top_k5_mean_input": 4779,
+      "difference": 95,
+      "n_per_group": 2,
+      "limitation": "Descriptive subset only; queries differ and this was not a separate randomized cost experiment."
+    }
+  },
+  "provisional_decision": {
+    "top_k": 4,
+    "rationale": "Both 4 and 5 achieved three complete one-search answers; 4 has better target precision (0.5 versus 0.4) and avoids the fifth non-target fragment for this question.",
+    "tradeoff": "Less retrieval breadth for other questions; three trials on one question do not establish general reliability. Not selected on a claim of lower observed whole-turn mean tokens.",
+    "mandate": "Ship it with regression checks and explicit remaining risks.",
+    "revisit_when": "Broader corpus-grounded cases show important facts missing at 4 but recovered at 5, with acceptable measured full-run cost.",
+    "pending": "Still run kb_broken/top_k5 using exercise-1 question and check tariffs.md#b4 before completing the broken-index portion."
+  },
+  "limits": [
+    "Only one user question, three trials per setting.",
+    "Agent-generated search queries and tool routes differ.",
+    "No-search failure included in completeness/cost, excluded as N/A from retrieval metric averages.",
+    "Full homework including new retrieval cases, eval runs, set_hash and cost/risk sections remains unfinished."
+  ]
+}
