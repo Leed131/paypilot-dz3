@@ -33,7 +33,14 @@
     "validate": "f1f7d9fad73c23dd435a35aaab3735a26f27297b",
     "cli": "0cb9f54f25ea65427a26366876dfe9f6bfa5356c"
   },
-  "docker_dry_run_on_user_machine": "pending",
+  "docker_dry_run_on_user_machine": {
+    "status": "Confirmed by user terminal screenshots",
+    "set_hash": "bba68640a585",
+    "cases": 42,
+    "retrieval_cases": 10,
+    "evidence_file": "docker-dry-run.json",
+    "date": "2026-10-24"
+  },
   "model_eval_clean": "not run",
   "model_eval_lesson_04": "not run"
 }
