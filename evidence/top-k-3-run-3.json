@@ -1,0 +1,165 @@
+{
+  "experiment": "top_k tradeoff",
+  "top_k": 3,
+  "run_number": 3,
+  "date": "2026-10-24",
+  "trace_id": "d3489cd2",
+  "source": "User-provided agent.request JSON, both search full JSON payloads, and screenshot of answer/trace. Second payload was pasted twice; no separate extra call is established by that duplicate.",
+  "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
+  "attributes": {
+    "session.id": "b709fb4e149a",
+    "dialog.step_number": 1,
+    "run.profile": "clean",
+    "run.active_defects": [],
+    "prompt.version": "base.v1",
+    "reply.language_detected": "uk",
+    "llm.provider": "openai",
+    "session.customer_id": "",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 6701,
+    "gen_ai.usage.total_output_tokens": 2249
+  },
+  "duration_ms": 25348.8,
+  "steps": [
+    "llm.call 0",
+    "get_account",
+    "llm.call 1",
+    "search_knowledge_base #1",
+    "llm.call 2",
+    "search_knowledge_base #2",
+    "final answer shown in screenshot"
+  ],
+  "searches": [
+    {
+      "call_number": 1,
+      "full_json_provided": true,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread daily limit transfer"
+      },
+      "tool.result": {
+        "index": "kb_clean",
+        "top_k": 3,
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread daily limit transfer",
+        "fragments": [
+          {
+            "id": "limits.md#s1",
+            "doc": "limits.md",
+            "score": 1.5011,
+            "text": "Transfer limits\n## Daily and monthly limits by tier\nOutgoing transfer limits are tracked in EUR equivalent, separately per day and\nper calendar month. The daily and the monthly remainder are different numbers:\nboth are computed from the same settled-transactions source, but over\ndifferent windows.\n\n| Tier | Daily limit | Monthly limit |\n|---|---|---|\n| Tier 1 | EUR 5,000 | EUR 50,000 |\n| Tier 2 | EUR 20,000 | EUR 200,000 |\n| Tier 3 | EUR 100,000 | EUR 1,000,000 |"
+          },
+          {
+            "id": "glossary.md#s6",
+            "doc": "glossary.md",
+            "score": 1.4596,
+            "text": "Glossary\n## Tier\nThe tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines\nspreads, allowances and transfer limits."
+          },
+          {
+            "id": "tariffs.md#s1",
+            "doc": "tariffs.md",
+            "score": 1.1832,
+            "text": "Verta tariff schedule\n## Account tiers\nVerta offers three account tiers: Tier 1, Tier 2 and Tier 3. The tier of\neach account sets its pricing as well as its daily and per-month transfer\nlimits."
+          }
+        ]
+      }
+    },
+    {
+      "call_number": 2,
+      "full_json_provided": true,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "spread Tier 2 spread FX spread Tier 2 spread allowance tariffs spread Tier 2"
+      },
+      "tool.result": {
+        "index": "kb_clean",
+        "top_k": 3,
+        "query": "spread Tier 2 spread FX spread Tier 2 spread allowance tariffs spread Tier 2",
+        "fragments": [
+          {
+            "id": "tariffs.md#s2",
+            "doc": "tariffs.md",
+            "score": 1.6641,
+            "text": "Verta tariff schedule\n## FX spreads by tier\nThe spread is applied over the mid-market rate only after the free monthly\nconversion allowance is exhausted.\n\n| Tier | FX spread | Free monthly conversion allowance |\n|---|---|---|\n| Tier 1 | 1.5% | EUR 500 |\n| Tier 2 | 0.9% | EUR 1,000 |\n| Tier 3 | 0.5% | EUR 5,000 |"
+          },
+          {
+            "id": "glossary.md#s6",
+            "doc": "glossary.md",
+            "score": 1.2511,
+            "text": "Glossary\n## Tier\nThe tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines\nspreads, allowances and transfer limits."
+          },
+          {
+            "id": "onboarding.md#s2",
+            "doc": "onboarding.md",
+            "score": 1.0426,
+            "text": "Onboarding and tiers\n## Tier benefits\nA higher tier lowers the FX spread, raises the free monthly conversion\nallowance and raises both transfer limits."
+          }
+        ]
+      }
+    }
+  ],
+  "reply_transcribed_from_screenshot": "Я перевірив документацію Verta.\n\nЗнайдено:\n- FX-спред для Tier 2: 0.9% (застосовується поверх середнього ринкового курсу після вичерпання безкоштовного місячного конверта EUR 1,000). Джерело: tariffs.md.\n- Денний ліміт вихідних переказів для Tier 2: EUR 20,000. Джерело: limits.md.\n\nЩо далі: якщо хочете, можу перевірити залишок вашого денного/місячного ліміту для конкретного рахунку — для цього потрібен доступ до вашого облікового запису. Скажіть, чи перевірити.",
+  "evaluation": {
+    "complete_answer_by_requested_facts": true,
+    "requested_facts_answered": 2,
+    "requested_facts_total": 2,
+    "search_calls": 2,
+    "search_count_evidence": "Two calls visible and two distinct payloads supplied. Pasted duplicate is not counted as an extra call.",
+    "single_search_instruction_followed": false,
+    "returned_fragment_occurrences": 6,
+    "distinct_fragment_ids": 5,
+    "context_recall": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1
+    },
+    "context_precision": {
+      "numerator": 2,
+      "denominator": 6,
+      "value": 0.3333333333333333,
+      "convention": "All returned fragment occurrences, including repeated glossary; relevance scoped to two requested values."
+    },
+    "retrieval_faithfulness": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1,
+      "scope": "Two requested numerical claims only; not all statements in answer."
+    },
+    "per_search_metrics": [
+      {
+        "call_number": 1,
+        "covered_requested_fact": "Tier 2 daily limit = EUR 20,000",
+        "context_recall": {
+          "numerator": 1,
+          "denominator": 2,
+          "value": 0.5
+        },
+        "context_precision": {
+          "numerator": 1,
+          "denominator": 3,
+          "value": 0.3333333333333333
+        }
+      },
+      {
+        "call_number": 2,
+        "covered_requested_fact": "Tier 2 FX spread = 0.9%",
+        "context_recall": {
+          "numerator": 1,
+          "denominator": 2,
+          "value": 0.5
+        },
+        "context_precision": {
+          "numerator": 1,
+          "denominator": 3,
+          "value": 0.3333333333333333
+        }
+      }
+    ],
+    "deduplicated_precision_alternative": {
+      "numerator": 2,
+      "denominator": 5,
+      "value": 0.4,
+      "convention": "Alternative unique-ID denominator, not primary."
+    },
+    "causal_limit": "Complete answer required two searches despite one-search request. Do not present this as a full answer from a single three-fragment retrieval."
+  }
+}
