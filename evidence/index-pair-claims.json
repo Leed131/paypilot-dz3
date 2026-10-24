@@ -1,0 +1,32 @@
+{
+  "purpose": "Explicit manual claim annotation for the isolated index comparison; not a whole-answer or account-tool faithfulness score",
+  "scope": "Four checked documentary statements per answer. Account tier is grounded in get_account, procedural descriptions and proposals are outside retrieval-claim scoring. Does not attest identical model ID across the two historical runs.",
+  "clean": {
+    "trace_id": "059737c5",
+    "claims": [
+      {"claim": "Tier 3 FX spread is 0.5%", "supported": true, "source": "tariffs.md#s2, Tier 3 row"},
+      {"claim": "Tier 3 free monthly conversion allowance is EUR 5,000", "supported": true, "source": "tariffs.md#s2, Tier 3 row"},
+      {"claim": "A conversion wholly within remaining allowance has no spread", "supported": true, "source": "fx-guide.md#s1, If the whole conversion fits ... no spread is charged"},
+      {"claim": "Full tier spread applies after allowance is exhausted", "supported": true, "source": "fx-guide.md#s1 and tariffs.md#s2"}
+    ],
+    "supported": 4, "evaluated": 4, "faithfulness_in_scope": 1,
+    "recall": {"retrieved": 2, "reference_facts": 2, "value": 1},
+    "precision": {"relevant_returns": 1, "all_returns": 4, "value": 0.25}
+  },
+  "broken": {
+    "trace_id": "9196e7e0",
+    "fragment_id": "fx-guide.md#b2",
+    "fragment_text": " spread (a percentage of the gross converted amount); the free monthly conversion allowance. If the whole conversion fits within the customer's remaining monthl",
+    "claims": [
+      {"claim": "The returned fragment mentions a percentage spread", "supported": true, "source": "spread (a percentage of the gross converted amount)"},
+      {"claim": "The returned fragment mentions free monthly conversion allowance", "supported": true, "source": "the free monthly conversion allowance"},
+      {"claim": "The returned fragment does not give the numerical tariff values", "supported": true, "source": "Full fragment inspection; no spread rate or allowance total"},
+      {"claim": "The returned fragment does not give the customer's remaining allowance value", "supported": true, "source": "Full fragment inspection; incomplete remaining monthl clause, no remaining value"}
+    ],
+    "supported": 4, "evaluated": 4, "faithfulness_in_scope": 1,
+    "recall": {"retrieved": 0, "reference_facts": 2, "value": 0},
+    "precision": {"relevant_returns": 0, "all_returns": 1, "value": 0}
+  },
+  "delta_broken_minus_clean": {"recall": -1, "precision": -0.25, "faithfulness_in_scope": 0},
+  "caveat": "High faithfulness of a careful refusal does not mean the required facts were retrieved. Different internal queries and tool-call counts are outcomes of the run and limit a fixed-query causal interpretation. Only settings-level index change is documented."
+}
