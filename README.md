@@ -39,7 +39,7 @@ STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --p
 **Фактичні збої та розбіжність із прогнозом:** TODO після прогону.
 
 ## Наступні кроки
-1. Відтворити C-13 і C-14 на lesson-04.
+1. C-13 перевірено у двох нових сесіях: початкові 1500 EUR не відтворено; докази в evidence/c13-attempt-1.json і evidence/c13-attempt-2.json. Далі відтворити C-14 на lesson-04.
 2. Доповнити top_k 4/5 до трьох прогонів кожного, виконати три прогони top_k 3.
 3. Перевірити kb_broken/top_k5 та наявність tariffs.md#b4.
 4. Додати ≥10 retrieval-кейсів із added_in=hw3, oracle=corpus і непорожнім reference; перевірити dry-run.
