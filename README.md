@@ -40,7 +40,7 @@ STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --p
 
 ## Наступні кроки
 1. Перевірку C-13 і C-14 завершено: по дві нові сесії, вихідні симптоми не відтворено у вибраному контексті; докази й обмеження в evidence/c13-attempt-*.json та evidence/c14-attempt-*.json.
-2. Top_k3 і top_k4 завершено: повнота 2/3 та 3/3; середні вхідні токени 5403.67 та 4688.67. Сводки: evidence/top-k-3-summary.json і evidence/top-k-4-summary.json. Для top_k5 є 1 прогін; залишилося №2/№3 — разом 2 прогони. Далі top_k5 №2.
+2. Top_k3 і top_k4 завершено: повнота 2/3 та 3/3; середні вхідні токени 5403.67 та 4688.67. Сводки: evidence/top-k-3-summary.json і evidence/top-k-4-summary.json. Для top_k5 є 2 повні прогони з одним пошуком, вхід 4778/4780; залишився №3 — останній із дев’яти прогонів цього порівняння.
 3. Перевірити kb_broken/top_k5 та наявність tariffs.md#b4.
 4. Додати ≥10 retrieval-кейсів із added_in=hw3, oracle=corpus і непорожнім reference; перевірити dry-run.
 5. Записати й окремо закомітити прогноз, потім виконати eval, додати raw reports і set_hash.
