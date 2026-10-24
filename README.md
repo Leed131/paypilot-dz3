@@ -1,38 +1,40 @@
 # L04 · RAGAS Diagnostic Report — PayPilot
-**Статус: ДЗ_3 у роботі. Вимірювання стенду та підготовку набору завершено; обидва модельні eval завершено; clean JSON перевірено. Потрібні lesson-04 JSON і фіналізація звіту.**
 
-Набір із [ДЗ_2](https://github.com/Leed131/paypilot-dz2): 32 кейси збережено без змін, додано 10 нових retrieval/corpus-кейсів. Разом **42 кейси: 37 daily і 5 release**. П’ять human/release-кейсів успадковано з ДЗ_2; типовий daily-прогін їх не запускає.
+Основні артефакти й обидва модельні звіти збережено. Залишилося підтвердити назву моделі з конфігурації стенду: raw JSON її не записують; відоме спостереження D05 — OpenAI / gpt-5-mini-2025-08-07. Це обмеження прямо вказане у звіті.
 
-`set_hash: bba68640a585` — обчислено штатним CLI кіту для поточних байтів golden.jsonl. Після копіювання у локальний кіт Docker dry-run підтвердив такий самий hash; див. evidence/docker-dry-run.json.
+Набір [ДЗ_2](https://github.com/Leed131/paypilot-dz2): **32 незмінені кейси + 10 нових retrieval/corpus = 42**, із них **37 daily, 5 release**. Поточний golden.jsonl і обидва raw JSON мають **set_hash=bba68640a585**. П’ять release-кейсів не входили до daily-прогонів.
 
 ## Файли
-- [ragas-diagnostic-report.md](ragas-diagnostic-report.md) — чернетка шести розділів; TODO ще не закрито.
-- [golden.jsonl](golden.jsonl) — 32 попередні + RET-H01…RET-H10.
-- [evidence/lab-notes.md](evidence/lab-notes.md) — ручні вимірювання, трейси, токени.
-- [evidence/top-k-comparison.json](evidence/top-k-comparison.json) — усі дев’ять прогонів top_k3/4/5.
-- [evidence/broken-index-top-k-5.json](evidence/broken-index-top-k-5.json) — bigger top_k не відновив повний Tier 3 allowance у цьому прогоні.
-- [evidence/retrieval-case-sources.json](evidence/retrieval-case-sources.json) — дослівні reference, рядки, секції та corpus blob SHA.
-- [evidence/dataset-validation.json](evidence/dataset-validation.json) — успішна локальна перевірка оригінальним CLI та перевірка всіх reference. Це не Docker- і не модельний eval-прогін.
-- [reports/golden-clean-20261024T213319.json](reports/golden-clean-20261024T213319.json) — сирий clean JSON; hash bba68640a585 перевірено. Lesson-04 raw JSON очікується.
+
+- [ragas-diagnostic-report.md](ragas-diagnostic-report.md) — шість розділів і останній рядок; контрольний A4-рендер вклався у дві сторінки (9.3 pt, поля 34 pt; Markdown сам по собі не фіксує пагінацію).
+- [golden.jsonl](golden.jsonl) — незмінені 32 + RET-H01…RET-H10.
+- [clean raw JSON](reports/golden-clean-20261024T213319.json) і [lesson-04 raw JSON](reports/golden-lesson-04-20261024T214702.json) — збережені без виправлення відповідей/вердиктів.
+- [Розбір усіх нових кейсів](evidence/model-run-analysis.md) — причини шести FAIL, literal/semantic межі та PASS без пошуку.
+- [Ручні докази](evidence/lab-notes.md), [top_k: дев’ять прогонів](evidence/top-k-comparison.json), [контроль broken/k5](evidence/broken-index-top-k-5.json).
+- [Claims audit ізольованої пари](evidence/index-pair-claims.json), [джерела reference](evidence/retrieval-case-sources.json), [валідація набору](evidence/dataset-validation.json), [Docker dry-run](evidence/docker-dry-run.json).
 
 ## Відтворення
-У локальному кіті `paypilot-l03-eval` замінити `sets/golden.jsonl` копією поточного файлу цього репозиторію. Команди виконувати з теки кіту. У ДЗ_2 використовувався шлях `STAND_DIR=../paypilot-stand-shared`; звірити з фактичним розташуванням стенду.
 
-Спершу перевірити набір у своєму Docker:
+Стенд PayPilot має бути запущений з налаштованим провайдером. У локальному кіті paypilot-l03-eval (у цьому середовищі папка l03) покласти поточний golden.jsonl у sets/golden.jsonl. Команди запускати з папки кіту. STAND_DIR вказує на сусідній paypilot-stand-shared.
+
 ```bash
 STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --dry-run
-```
-
-Очікувані структурні дані: 42 cases, retrieval 10, daily 37, release 5, hash bba68640a585. Локальна перевірка тут уже пройшла без Docker; результат у evidence/dataset-validation.json.
-
-Модельні запуски виконувати лише після збереженого нижче прогнозу:
-```bash
 STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile clean
 STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile lesson-04
 ```
 
-Записати фактичні вердикти, помилки та зберегти сирі JSON із `reports/` кіту. Якщо lesson-04 не підтримується, зберегти точне повідомлення замість вигаданого результату. Звіти порівнювати тільки з однаковим set_hash.
-`.env` і ключі не належать до файлів здачі.
+Dry-run: 42 кейси, retrieval 10, daily 37, release 5, hash bba68640a585. Модельні запуски вже виконані; повторювати для здачі не потрібно. Наведені команди — для відтворення. Прогноз нижче був закомічений до обох запусків. Console-повідомлення evals/reports/ відповідає локальній папці reports/ кіту через Docker volume. Стенд, кіт, .env і API-ключі не входять у файли цієї роботи.
+
+## Прогони
+
+| Прогін | Профіль / prompt | Фактичний результат | Джерело |
+|---|---|---|---|
+| CLI --dry-run | Без моделі | Exit 0; 42 кейси; hash bba68640a585 | [Validation](evidence/dataset-validation.json) |
+| Docker --dry-run | Без моделі | 42 кейси; hash bba68640a585 | [Docker evidence](evidence/docker-dry-run.json) |
+| Baseline | clean / base.v1 | **37/37**; action 11/11, generation 16/16, retrieval **10/10**; 494.6 с | [Raw](reports/golden-clean-20261024T213319.json) |
+| Профіль заняття | lesson-04 / base.v1+D05 | **31/37**; action 11/11, generation 16/16, retrieval **4/10**; 530.5 с | [Raw](reports/golden-lesson-04-20261024T214702.json) |
+
+Кожен новий кейс — один запуск. Це assertion-вердикти, не ймовірність безпомилкової роботи. У raw немає моделі агента та окремих input/output токенів; частину відповідей обрізано ранером на 400 символах. Tool.result.fragments збережено повністю. Загальні токени всіх кейсів: clean 209461, lesson-04 305759; не ототожнюємо їх із вхідними токенами ручного top_k-порівняння.
 
 ## Retrieval-кейси
 Усі 10 нових кейсів мають layer=retrieval, oracle=corpus, assertion=contains, runs=1, gate=daily, added_in=hw3. Два — реконструкції скарг, вісім — окремі правила/рядки корпусу; кейсів із прикладів вправ 1–2 немає.
@@ -51,6 +53,7 @@ STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --p
 
 Contains перевіряє заданий текст/формат, а не всі можливі перефразування. Сам PASS не доводить, що агент викликав пошук чи що весь reference був у retrieval-контексті. Це межа цих перевірок, продемонстрована ручними C-14.
 
+
 ## Прогноз ДО модельних прогонів
 **Гіпотеза, не фактичний результат.** Структурна валідація не викликає модель. Після її успіху жоден модельний прогін оновленого набору ще не виконувався.
 
@@ -60,26 +63,24 @@ Contains перевіряє заданий текст/формат, а не вс
 - Для **RET-H02, RET-H04, RET-H05, RET-H06, RET-H07, RET-H08, RET-H09, RET-H10** прогнозую PASS. Невизначеність найбільша для RET-H02: у ручних C-14 обидві частини відповідей були правильними навіть за неповного retrieval; новий кейс додатково вимагає конкретного формату.
 - Разом для нових retrieval-кейсів: очікування clean **10/10**, lesson-04 **8/10**. Це не прогноз сукупного результату всіх 37 daily-кейсів.
 
-**Коміт із прогнозом:** [`81753a9`](https://github.com/Leed131/paypilot-dz3/commit/81753a9decf97c22ff9eff6dbb9ef36353f7725f) — окремий коміт до будь-яких модельних eval оновленого набору.
-**Спостереження після прогнозу:** clean — 37/37 daily PASS; нові retrieval — 10/10 PASS. Console: [evidence/clean-eval-console-20261024.txt](evidence/clean-eval-console-20261024.txt). lesson-04 — 31/37 daily PASS, retrieval 4/10; FAIL RET-H01, RET-H02, RET-H03, RET-H07, RET-H09, RET-H10.
-**Розбіжність із прогнозом:** clean 10/10 збігається з прогнозом 10/10; lesson-04 4/10 проти прогнозу 8/10. Додаткові FAIL: RET-H02, RET-H07, RET-H09, RET-H10. Первинний прогноз вище збережено. Literal FAIL не ототожнюємо зі змістовно хибною відповіддю; попередній аналіз у evidence/lesson-04-eval-console-summary.json.
 
-## Прогони
-| Прогін | Профіль | Фактичний результат | Сирий звіт |
-|---|---|---|---|
-| Локальний штатний CLI --dry-run | Без стенду | Exit 0; 42 кейси; hash bba68640a585 | evidence/dataset-validation.json |
-| Docker --dry-run користувача | Без модельних запитів | Завершено; 42 кейси, retrieval 10, hash bba68640a585 | evidence/docker-dry-run.json |
-| Baseline | clean | 37/37 daily PASS: action 11/11, generation 16/16, retrieval 10/10; 494.6 с | [raw JSON](reports/golden-clean-20261024T213319.json); hash bba68640a585 |
-| Профіль заняття | lesson-04 | 31/37 daily PASS: action 11/11, generation 16/16, retrieval 4/10; 530.5 с | [Console summary](evidence/lesson-04-eval-console-summary.json); raw JSON очікується |
+**Коміт із прогнозом:** [81753a9](https://github.com/Leed131/paypilot-dz3/commit/81753a9decf97c22ff9eff6dbb9ef36353f7725f), **2026-10-24 21:11:32 UTC**; clean ran_at 21:33:19 UTC, lesson-04 ran_at 21:47:02 UTC. Історичний текст прогнозу вище збережено.
 
-## Підтверджені ручні результати
-- C-13/C-14: по дві нові сесії; вихідні симптоми не відтворено у реконструйованих сценаріях. Побічні збої та обмеження збережено окремо.
-- Top_k3/4/5: повнота 2/3, 3/3, 3/3; середній вхід 5403.67, 4688.67, 4308.67. Менший вхід при 5 має застереження про інший маршрут викликів.
-- Broken/top_k5: tariffs.md#b4 не прийшов; спред знайдено, повного allowance немає. Fx-guide.md#b4 — інший документ.
-- D25 ×5 і правило промпту збережено; D05 контроль без пошуку збережено.
+## Факт і розбіжність із прогнозом
 
-## Залишилося до здачі
-1. Обидва модельні прогони завершено; повтор не потрібен. Зберегти raw lesson-04 JSON.
-2. Перевірити hash lesson-04 JSON і повні retrieval payload-и шести FAIL. Clean raw JSON збережено; hash збігається. Прогноз уже звірено за console, не переписано.
-3. Закрити TODO звіту: метадані/faithfulness пари індексів, оцінка вартості переіндексації, залишковий ризик і останній рядок рішення.
-4. Скоротити остаточний звіт до двох сторінок і звірити чекліст ДЗ.
+Clean retrieval **10/10** проти прогнозу **10/10**. Lesson-04 **4/10** проти **8/10**. Очікувані FAIL H01/H03 відбулися; додаткові FAIL **H02, H07, H09, H10**. H02/H07 — step budget після 12 пошуків. H03 — непідтверджені числа, зокрема 0.00% замість 0.3%. H09 — не підтверджена retrieval-фрагментом цитата; H10 — правильне правило either, але інша literal-фраза й обірвана цитата. Первісні вердикти залишено.
+
+H04/H05 отримали PASS без будь-яких інструментів: текст правильний, вимога пошуку не перевірена assertion. H06 знайшов потрібні ліміти за 7 пошуків; H08 підтверджено іншим релевантним документом. Отже сам contains не діагностує всі властивості retrieval. [Повний розбір](evidence/model-run-analysis.md).
+
+## Рішення та межі
+
+- Для цього питання обрано top_k4: повнота 3/3, precision 0.5 проти 0.4 при k5. Фактичний середній input k5 нижчий через інший маршрут, тому не заявляємо, що k4 завжди дешевший.
+- Broken/k5 знайшов спред, але повного allowance не відновив. Потрібно виправляти цілісність фрагментів; більший k не гарантує цього.
+- D25 ×5 показує генераційний збій на правильному tool result. D05 контроль — відповідь без пошуку.
+- C-13/C-14: вихідні симптоми 0/2 у реконструкціях; це не доказ відсутності проблем на інших запитах.
+- Оцінка перебудови корпусу у звіті — плановий сценарій з явними припущеннями, не рахунок постачальника.
+- Залишковий ризик: правильний опис ескалації без реальної дії. Retrieval-метрики перевіряють текст; автономні дії потребують action-перевірок.
+- Не змінюємо golden.jsonl, oracle або прогноз, щоб прибрати фактичні FAIL. Поліпшення assertions — окрема наступна версія.
+
+Потрібне лише підтвердження LLM_PROVIDER/LLM_MODEL із конфігурації без секретів. Воно уточнить метадані, але не відновить відсутній історичний model ID кожного ходу.
+
