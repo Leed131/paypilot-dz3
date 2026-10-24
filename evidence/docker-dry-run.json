@@ -1,0 +1,52 @@
+{
+  "validation": "User-machine Docker --dry-run",
+  "date": "2026-10-24",
+  "evidence_source": "Three user-provided terminal screenshots; completed summary visible and shell prompt returned.",
+  "working_directory": "l03 (local course folder)",
+  "command": "STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --dry-run",
+  "status": "Completed successfully as observed; no error visible",
+  "explicit_shell_exit_code": "Not separately printed",
+  "set": "golden.jsonl",
+  "set_hash": "bba68640a585",
+  "summary": {
+    "cases": 42,
+    "layers": {
+      "action": 11,
+      "generation": 21,
+      "retrieval": 10
+    },
+    "oracles": {
+      "corpus": 12,
+      "engine": 25,
+      "human": 5
+    },
+    "sources": {
+      "complaint": 13,
+      "corpus": 8,
+      "edge": 12,
+      "engine": 9
+    },
+    "severities": {
+      "critical": 4,
+      "high": 31,
+      "medium": 7
+    },
+    "ladder_levels": [
+      1,
+      2,
+      3,
+      4,
+      7
+    ],
+    "gates": {
+      "daily": 37,
+      "release": 5
+    },
+    "human_oracle_pct": 11.9,
+    "severity_filled_pct": 100
+  },
+  "model_calls": false,
+  "agent_evaluation_results": "Not produced by dry-run",
+  "next": "Run clean profile on unchanged set, then lesson-04 and preserve raw reports.",
+  "prediction_commit": "81753a9decf97c22ff9eff6dbb9ef36353f7725f"
+}
