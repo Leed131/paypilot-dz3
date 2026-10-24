@@ -81,12 +81,20 @@
     "tradeoff": "Less retrieval breadth for other questions; three trials on one question do not establish general reliability. Not selected on a claim of lower observed whole-turn mean tokens.",
     "mandate": "Ship it with regression checks and explicit remaining risks.",
     "revisit_when": "Broader corpus-grounded cases show important facts missing at 4 but recovered at 5, with acceptable measured full-run cost.",
-    "pending": "Still run kb_broken/top_k5 using exercise-1 question and check tariffs.md#b4 before completing the broken-index portion."
+    "pending": "Broken-index top_k5 check completed in d946930c: tariffs.md#b4 absent, allowance still unavailable, observed coverage improved from 0/2 to 1/2. Full homework still requires cases, eval reports and remaining report sections."
   },
   "limits": [
     "Only one user question, three trials per setting.",
     "Agent-generated search queries and tool routes differ.",
     "No-search failure included in completeness/cost, excluded as N/A from retrieval metric averages.",
     "Full homework including new retrieval cases, eval runs, set_hash and cost/risk sections remains unfinished."
-  ]
+  ],
+  "broken_index_check": {
+    "evidence_file": "broken-index-top-k-5.json",
+    "trace_id": "d946930c",
+    "tariffs_b4_retrieved": false,
+    "reference_fact_coverage": "1/2",
+    "complete_answer": false,
+    "input_tokens": 6852
+  }
 }
