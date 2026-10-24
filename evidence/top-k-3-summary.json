@@ -1,0 +1,99 @@
+{
+  "experiment": "top_k tradeoff",
+  "top_k": 3,
+  "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
+  "settings": {
+    "profile": "clean",
+    "index": "kb_clean",
+    "customer_id": "",
+    "active_defects": [],
+    "new_session_per_run": true
+  },
+  "runs": [
+    {
+      "run_number": 1,
+      "trace_id": "d3a34b6d",
+      "session_id": "d407fc60aa8a",
+      "complete_answer": false,
+      "search_calls": 0,
+      "input_tokens": 2749,
+      "output_tokens": 1097,
+      "evidence_file": "top-k-3-run-1.json"
+    },
+    {
+      "run_number": 2,
+      "trace_id": "17eefde1",
+      "session_id": "220c0bcb5ffb",
+      "complete_answer": true,
+      "search_calls": 2,
+      "input_tokens": 6761,
+      "output_tokens": 2500,
+      "evidence_file": "top-k-3-run-2.json"
+    },
+    {
+      "run_number": 3,
+      "trace_id": "d3489cd2",
+      "session_id": "b709fb4e149a",
+      "complete_answer": true,
+      "search_calls": 2,
+      "input_tokens": 6701,
+      "output_tokens": 2249,
+      "evidence_file": "top-k-3-run-3.json"
+    }
+  ],
+  "aggregate": {
+    "runs_completed": 3,
+    "runs_required": 3,
+    "complete_answers": {
+      "numerator": 2,
+      "denominator": 3,
+      "value": 0.6666666666666666
+    },
+    "exactly_one_search_and_complete": {
+      "numerator": 0,
+      "denominator": 3,
+      "value": 0
+    },
+    "search_call_counts": [
+      0,
+      2,
+      2
+    ],
+    "input_tokens": {
+      "values": [
+        2749,
+        6761,
+        6701
+      ],
+      "total": 16211,
+      "mean": 5403.666666666667
+    },
+    "output_tokens": {
+      "values": [
+        1097,
+        2500,
+        2249
+      ],
+      "total": 5846,
+      "mean": 1948.6666666666667
+    },
+    "retrieval_metric_scope": "Only runs 2 and 3 that actually searched. Run 1 is not applicable, not scored 0 and not discarded from completeness or token cost.",
+    "context_recall_among_search_runs": {
+      "numerator": 4,
+      "denominator": 4,
+      "value": 1
+    },
+    "context_precision_among_search_runs": {
+      "numerator": 4,
+      "denominator": 12,
+      "value": 0.3333333333333333,
+      "convention": "All fragment occurrences including repeats"
+    },
+    "faithfulness_requested_numeric_claims_among_search_runs": {
+      "numerator": 4,
+      "denominator": 4,
+      "value": 1
+    }
+  },
+  "interpretation": "Run 1 stopped without retrieval. In runs 2 and 3 first search provided daily limit, second search supplied spread. High conditional recall does not mean all three runs succeeded or that a single top-k=3 retrieval was complete."
+}
