@@ -167,9 +167,15 @@ Query: “Tier 2 spread daily transfer limit Tier 2 spread "Tier 2" daily limit 
 Еталони дослівно взято з вихідних tariffs.md, limits.md, disputes.md; версії й рядки у retrieval-case-sources.json. Модельні відповіді не джерело еталона.
 Локально виконано оригінальні cli.py/validate.py/loader.py/assertions.py кіту: --set golden --dry-run, exit0; окремо звірено всі reference з точними corpus blob SHA. Hash `bba68640a585`. Це не Docker-прогін на комп’ютері користувача і не eval агента; raw eval reports поки відсутні.
 
+## Docker dry-run на комп’ютері користувача
+[Підтвердження зі скриншотів](docker-dry-run.json), 24.10.2026.
+Команда з l03: STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --dry-run.
+Повне зведення завершилося й повернуло shell prompt: 42 кейси, retrieval10, daily37, release5, hash bba68640a585. Hash збігається з підготовленим у GitHub файлом. Три скриншоти показують однакову перевірку; це не модельні прогони і не додаткові спроби top_k.
+Прогноз збережено до model eval у коміті 81753a9decf97c22ff9eff6dbb9ef36353f7725f. Наступний крок — clean eval незміненого набору, потім lesson-04; зафіксувати шлях і raw JSON звітів.
+
 ## Невиконані вимоги ДЗ_3
 - C-13 і C-14 перевірено по дві спроби: вихідні симптоми не відтворено; перевірку скарг завершено, обмеження реконструкції записано.
 - Усі дев’ять прогонів top_k3/4/5 завершено, результати зведено. Додаткові повтори цього порівняння зараз не потрібні.
 - Перевірку kb_broken/top_k5 завершено; tariffs.md#b4 не прийшов, повного ліміту немає.
-- 10 retrieval-кейсів додано, reference і локальний штатний CLI dry-run перевірено, hash bba68640a585. Залишилися Docker dry-run на комп’ютері користувача, модельні clean/lesson-04 eval, raw reports та звірка прогнозу (прогноз комітиться до них).
+- 10 retrieval-кейсів додано, reference і локальний штатний CLI dry-run перевірено, hash bba68640a585. Docker dry-run на комп’ютері користувача підтверджено. Залишилися модельні clean/lesson-04 eval, raw reports та звірка прогнозу (прогноз комітиться до них).
 - Заповнити ціни/ризики/рішення та остаточний звіт ≤2 сторінки.
