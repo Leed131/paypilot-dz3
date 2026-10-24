@@ -1,1 +1,49 @@
-# paypilot-dz3
+# L04 · RAGAS Diagnostic Report — PayPilot
+**Статус: ДЗ_3 у роботі; ще не готове до здачі.**
+
+Набір із [ДЗ_2](https://github.com/Leed131/paypilot-dz2): 32 кейси скопійовано без змін. Вихідний blob SHA: `793501ee10546fa148bc912362fee70de447e5fd`.
+Наразі нових hw3/retrieval-кейсів: 0. Ціль: щонайменше 10, не більше двох із прикладів вправ 1–2.
+
+## Файли
+- [ragas-diagnostic-report.md](ragas-diagnostic-report.md) — чернетка за шістьма розділами шаблону, TODO позначають відсутні дані.
+- [golden.jsonl](golden.jsonl) — вихідні 32 кейси ДЗ_2.
+- [evidence/lab-notes.md](evidence/lab-notes.md) — виміряні результати лабораторної, запити, токени та ID трейcів.
+- `reports/*.json` — будуть додані після eval; ручні лабораторні спостереження їх не замінюють.
+
+## Запуск
+У локальному кіті `paypilot-l03-eval` покласти цей golden.jsonl у `sets/golden.jsonl`.
+Виконувати з теки кіту, не з теки цього репозиторію. У ДЗ_2 використовувалося `STAND_DIR=../paypilot-stand-shared`; звірити з локальним розташуванням стенду.
+
+```bash
+STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --dry-run
+STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile clean
+STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile lesson-04
+```
+
+`set_hash` оновленого набору: **TODO після додавання кейсів і запуску ранера**. Старий hash ДЗ_2 не є hash майбутнього набору.
+Якщо ранер не підтримує lesson-04, зберегти точну помилку й описати обмеження.
+
+## Retrieval-кейси
+| id | Джерело | Файл і рядок корпусу |
+|---|---|---|
+| TODO | Скарги/корпус; reference дослівно з app/rag/corpus/*.md | TODO |
+
+## Прогони
+| Прогін | Профіль | Результат | Звіт |
+|---|---|---|---|
+| Baseline | clean | Не виконано для ДЗ_3 | TODO |
+| Профіль заняття | lesson-04 | Не виконано для ДЗ_3 | TODO |
+
+**Прогноз до прогону lesson-04:** TODO після підготовки кейсів назвати конкретні ID та причини очікуваних збоїв.
+**Коміт із прогнозом:** TODO — окремий коміт до прогону.
+**Фактичні збої та розбіжність із прогнозом:** TODO після прогону.
+
+## Наступні кроки
+1. Відтворити C-13 і C-14 на lesson-04.
+2. Доповнити top_k 4/5 до трьох прогонів кожного, виконати три прогони top_k 3.
+3. Перевірити kb_broken/top_k5 та наявність tariffs.md#b4.
+4. Додати ≥10 retrieval-кейсів із added_in=hw3, oracle=corpus і непорожнім reference; перевірити dry-run.
+5. Записати й окремо закомітити прогноз, потім виконати eval, додати raw reports і set_hash.
+6. Завершити висновки та скоротити звіт до двох сторінок.
+
+D25 ×5 і перегляд правила промпту вже виконано; результати внесено в чернетку.
