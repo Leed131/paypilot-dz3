@@ -1,0 +1,110 @@
+{
+  "experiment": "top_k tradeoff",
+  "top_k": 5,
+  "run_number": 2,
+  "date": "2026-10-24",
+  "trace_id": "462aa686",
+  "source": "User-provided complete trace, agent.request JSON, full search JSON and screenshot of answer.",
+  "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
+  "attributes": {
+    "session.id": "8d669865817a",
+    "dialog.step_number": 1,
+    "run.profile": "clean",
+    "run.active_defects": [],
+    "prompt.version": "base.v1",
+    "reply.language_detected": "uk",
+    "llm.provider": "openai",
+    "session.customer_id": "",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 4780,
+    "gen_ai.usage.total_output_tokens": 1770
+  },
+  "duration_ms": 18732.9,
+  "steps": [
+    "llm.call 0",
+    "get_account",
+    "llm.call 1",
+    "search_knowledge_base",
+    "llm.call 2"
+  ],
+  "searches": [
+    {
+      "call_number": 1,
+      "full_json_provided": true,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread \"Tier 2\" daily limit transfer spread"
+      },
+      "tool.result": {
+        "index": "kb_clean",
+        "top_k": 5,
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread \"Tier 2\" daily limit transfer spread",
+        "fragments": [
+          {
+            "id": "limits.md#s1",
+            "doc": "limits.md",
+            "score": 1.5011,
+            "text": "Transfer limits\n## Daily and monthly limits by tier\nOutgoing transfer limits are tracked in EUR equivalent, separately per day and\nper calendar month. The daily and the monthly remainder are different numbers:\nboth are computed from the same settled-transactions source, but over\ndifferent windows.\n\n| Tier | Daily limit | Monthly limit |\n|---|---|---|\n| Tier 1 | EUR 5,000 | EUR 50,000 |\n| Tier 2 | EUR 20,000 | EUR 200,000 |\n| Tier 3 | EUR 100,000 | EUR 1,000,000 |"
+          },
+          {
+            "id": "glossary.md#s6",
+            "doc": "glossary.md",
+            "score": 1.4596,
+            "text": "Glossary\n## Tier\nThe tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines\nspreads, allowances and transfer limits."
+          },
+          {
+            "id": "tariffs.md#s1",
+            "doc": "tariffs.md",
+            "score": 1.1832,
+            "text": "Verta tariff schedule\n## Account tiers\nVerta offers three account tiers: Tier 1, Tier 2 and Tier 3. The tier of\neach account sets its pricing as well as its daily and per-month transfer\nlimits."
+          },
+          {
+            "id": "tariffs.md#s2",
+            "doc": "tariffs.md",
+            "score": 1.1094,
+            "text": "Verta tariff schedule\n## FX spreads by tier\nThe spread is applied over the mid-market rate only after the free monthly\nconversion allowance is exhausted.\n\n| Tier | FX spread | Free monthly conversion allowance |\n|---|---|---|\n| Tier 1 | 1.5% | EUR 500 |\n| Tier 2 | 0.9% | EUR 1,000 |\n| Tier 3 | 0.5% | EUR 5,000 |"
+          },
+          {
+            "id": "limits.md#s2",
+            "doc": "limits.md",
+            "score": 0.8944,
+            "text": "Transfer limits\n## How the remainder is computed\nThe daily remainder equals the daily limit minus settled outgoing transfers\ndated today. The monthly remainder equals the monthly limit minus settled\noutgoing transfers in the current calendar month. A transfer is refused when\nit exceeds either remainder."
+          }
+        ]
+      }
+    }
+  ],
+  "reply_transcribed_from_screenshot": "Я спочатку спробував отримати ваш акаунт для контексту, але сесія не авторизована, тому перевірив документацію.\n\nЩо знайшов:\n- FX spread для Tier 2: 0.9% (джерело: tariffs.md — \"FX spreads by tier\").\n- Денний ліміт переказів для Tier 2: EUR 20,000 (джерело: limits.md — \"Daily and monthly limits by tier\").\n\nЩо далі:\n- Якщо хочете, можу перевірити ваші персональні ліміти (залишок дня/місяця) — увійдіть у сесію й повторіть запит, або скажіть, який саме account_id перевірити.",
+  "evaluation": {
+    "complete_answer_by_requested_facts": true,
+    "requested_facts_answered": 2,
+    "requested_facts_total": 2,
+    "search_calls": 1,
+    "single_search_instruction_followed": true,
+    "returned_fragment_occurrences": 5,
+    "distinct_fragment_ids": 5,
+    "context_recall": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1
+    },
+    "context_precision": {
+      "numerator": 2,
+      "denominator": 5,
+      "value": 0.4,
+      "convention": "All returned fragment occurrences; relevance scoped to two requested values."
+    },
+    "retrieval_faithfulness": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1,
+      "scope": "Two requested numerical claims only, not every statement in the answer."
+    },
+    "group_progress": {
+      "completed_runs": 2,
+      "required_runs": 3,
+      "complete_answers": 2
+    },
+    "limitations": "Only two of three scheduled runs complete; generated queries vary between runs and top_k values."
+  }
+}
