@@ -4,7 +4,7 @@
   "run_number": 2,
   "date": "2026-10-24",
   "trace_id": "17eefde1",
-  "source": "User-provided complete trace summary, agent.request JSON, second search full JSON, and screenshot of answer.",
+  "source": "User-provided complete trace summary, agent.request JSON, full tool results of both searches and screenshot of answer.",
   "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
   "attributes": {
     "session.id": "220c0bcb5ffb",
@@ -32,24 +32,36 @@
   "searches": [
     {
       "call_number": 1,
-      "index": "kb_clean",
-      "top_k": 3,
-      "query": null,
-      "full_json_provided": false,
-      "fragments_from_trace": [
-        {
-          "id": "limits.md#s1",
-          "score": 1.6166
-        },
-        {
-          "id": "glossary.md#s6",
-          "score": 1.4596
-        },
-        {
-          "id": "tariffs.md#s1",
-          "score": 1.1832
-        }
-      ]
+      "full_json_provided": true,
+      "tool.name": "search_knowledge_base",
+      "tool.arguments": {
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread day limit \"Tier 2\" spread limit"
+      },
+      "tool.result": {
+        "index": "kb_clean",
+        "top_k": 3,
+        "query": "Tier 2 spread daily transfer limit Tier 2 spread day limit \"Tier 2\" spread limit",
+        "fragments": [
+          {
+            "id": "limits.md#s1",
+            "doc": "limits.md",
+            "score": 1.6166,
+            "text": "Transfer limits\n## Daily and monthly limits by tier\nOutgoing transfer limits are tracked in EUR equivalent, separately per day and\nper calendar month. The daily and the monthly remainder are different numbers:\nboth are computed from the same settled-transactions source, but over\ndifferent windows.\n\n| Tier | Daily limit | Monthly limit |\n|---|---|---|\n| Tier 1 | EUR 5,000 | EUR 50,000 |\n| Tier 2 | EUR 20,000 | EUR 200,000 |\n| Tier 3 | EUR 100,000 | EUR 1,000,000 |"
+          },
+          {
+            "id": "glossary.md#s6",
+            "doc": "glossary.md",
+            "score": 1.4596,
+            "text": "Glossary\n## Tier\nThe tariff level of a customer: Tier 1, Tier 2 or Tier 3. The tier determines\nspreads, allowances and transfer limits."
+          },
+          {
+            "id": "tariffs.md#s1",
+            "doc": "tariffs.md",
+            "score": 1.1832,
+            "text": "Verta tariff schedule\n## Account tiers\nVerta offers three account tiers: Tier 1, Tier 2 and Tier 3. The tier of\neach account sets its pricing as well as its daily and per-month transfer\nlimits."
+          }
+        ]
+      }
     },
     {
       "call_number": 2,
@@ -99,22 +111,66 @@
     "single_search_instruction_followed": false,
     "returned_fragment_occurrences": 6,
     "distinct_fragment_ids": 4,
-    "context_recall": null,
-    "context_precision": null,
-    "retrieval_faithfulness": null,
-    "metric_status": "Pending first search full tool.result and query; do not substitute an earlier run's tool result.",
-    "provisional_trace_based_metrics": {
-      "scope": "Only two requested numerical facts; primary precision counts all returned fragment occurrences, including repeats.",
-      "recall_if_first_result_confirms_daily_row": "2/2 = 1",
-      "precision_by_occurrence_if_confirmed": "2/6 = 1/3",
-      "precision_deduplicated_if_confirmed": "2/4 = 0.5 (different convention, not primary)"
+    "context_recall": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1
     },
+    "context_precision": {
+      "numerator": 2,
+      "denominator": 6,
+      "value": 0.3333333333333333,
+      "convention": "All returned fragment occurrences across both calls, including repeats; relevance scoped to the two requested values."
+    },
+    "retrieval_faithfulness": {
+      "numerator": 2,
+      "denominator": 2,
+      "value": 1,
+      "scope": "Two requested numerical claims only; not an evaluation of every statement in the answer."
+    },
+    "metric_status": "Both complete search results supplied and facts verified.",
     "group_progress": {
       "completed_runs": 2,
       "required_runs": 3,
       "complete_answers": 1,
       "no_search_runs": 1
     },
-    "causal_limit": "Two adaptive searches and different generated queries confound comparisons based only on configured top_k. A complete answer is separate from following the one-search instruction."
+    "causal_limit": "Two adaptive searches and different generated queries confound comparisons based only on configured top_k. A complete answer is separate from following the one-search instruction.",
+    "per_search_metrics": [
+      {
+        "call_number": 1,
+        "covered_requested_fact": "Tier 2 daily limit = EUR 20,000",
+        "context_recall": {
+          "numerator": 1,
+          "denominator": 2,
+          "value": 0.5
+        },
+        "context_precision": {
+          "numerator": 1,
+          "denominator": 3,
+          "value": 0.3333333333333333
+        }
+      },
+      {
+        "call_number": 2,
+        "covered_requested_fact": "Tier 2 FX spread = 0.9%",
+        "context_recall": {
+          "numerator": 1,
+          "denominator": 2,
+          "value": 0.5
+        },
+        "context_precision": {
+          "numerator": 1,
+          "denominator": 3,
+          "value": 0.3333333333333333
+        }
+      }
+    ],
+    "deduplicated_precision_alternative": {
+      "numerator": 2,
+      "denominator": 4,
+      "value": 0.5,
+      "convention": "Distinct IDs only; recorded as an alternative, not used for primary reported precision."
+    }
   }
 }
