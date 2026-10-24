@@ -179,3 +179,10 @@ Query: “Tier 2 spread daily transfer limit Tier 2 spread "Tier 2" daily limit 
 - Перевірку kb_broken/top_k5 завершено; tariffs.md#b4 не прийшов, повного ліміту немає.
 - 10 retrieval-кейсів додано, reference і локальний штатний CLI dry-run перевірено, hash bba68640a585. Docker dry-run на комп’ютері користувача підтверджено. Залишилися модельні clean/lesson-04 eval, raw reports та звірка прогнозу (прогноз комітиться до них).
 - Заповнити ціни/ризики/рішення та остаточний звіт ≤2 сторінки.
+
+
+## Реальний модельний eval — clean
+24.10.2026, команда з l03: `STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile clean`.
+Наданий повний console output збережено у [clean-eval-console-20261024.txt](clean-eval-console-20261024.txt). 37/37 daily PASS, action 11/11, generation 16/16, retrieval 10/10; час 494.6 с. П’ять release-кейсів не виконувалися. Ранер повідомив `profile clean`, `prompt base.v1`, `gate daily`.
+Шлях у console: `evals/reports/golden-clean-20261024T213319.json`; Docker volume означає локальний `l03/reports/golden-clean-20261024T213319.json`.
+Прогноз clean 10/10 нових retrieval збігся з результатом. Первісний прогноз lesson-04 8/10 не змінювався. Сирий JSON ще не надано: hash і повні payload-и цього модельного звіту потрібно перевірити після отримання; console preview фрагментів обрізане. PASS за contains не доводить усі вимоги формату: RET-H01 має додатковий вступ, хоча числові рядки правильні. CMP-004 спершу викликав get_account з некоректним аргументом, потім відновився; case PASS не означає безпомилковість усіх кроків.
