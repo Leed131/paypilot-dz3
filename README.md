@@ -1,5 +1,5 @@
 # L04 · RAGAS Diagnostic Report — PayPilot
-**Статус: ДЗ_3 у роботі. Вимірювання стенду та підготовку набору завершено; clean eval пройдено; lesson-04, сирі JSON і фіналізація звіту ще попереду.**
+**Статус: ДЗ_3 у роботі. Вимірювання стенду та підготовку набору завершено; обидва модельні eval завершено; clean JSON перевірено. Потрібні lesson-04 JSON і фіналізація звіту.**
 
 Набір із [ДЗ_2](https://github.com/Leed131/paypilot-dz2): 32 кейси збережено без змін, додано 10 нових retrieval/corpus-кейсів. Разом **42 кейси: 37 daily і 5 release**. П’ять human/release-кейсів успадковано з ДЗ_2; типовий daily-прогін їх не запускає.
 
@@ -13,7 +13,7 @@
 - [evidence/broken-index-top-k-5.json](evidence/broken-index-top-k-5.json) — bigger top_k не відновив повний Tier 3 allowance у цьому прогоні.
 - [evidence/retrieval-case-sources.json](evidence/retrieval-case-sources.json) — дослівні reference, рядки, секції та corpus blob SHA.
 - [evidence/dataset-validation.json](evidence/dataset-validation.json) — успішна локальна перевірка оригінальним CLI та перевірка всіх reference. Це не Docker- і не модельний eval-прогін.
-- `reports/*.json` — TODO після реальних запусків ранера.
+- [reports/golden-clean-20261024T213319.json](reports/golden-clean-20261024T213319.json) — сирий clean JSON; hash bba68640a585 перевірено. Lesson-04 raw JSON очікується.
 
 ## Відтворення
 У локальному кіті `paypilot-l03-eval` замінити `sets/golden.jsonl` копією поточного файлу цього репозиторію. Команди виконувати з теки кіту. У ДЗ_2 використовувався шлях `STAND_DIR=../paypilot-stand-shared`; звірити з фактичним розташуванням стенду.
@@ -61,16 +61,16 @@ Contains перевіряє заданий текст/формат, а не вс
 - Разом для нових retrieval-кейсів: очікування clean **10/10**, lesson-04 **8/10**. Це не прогноз сукупного результату всіх 37 daily-кейсів.
 
 **Коміт із прогнозом:** [`81753a9`](https://github.com/Leed131/paypilot-dz3/commit/81753a9decf97c22ff9eff6dbb9ef36353f7725f) — окремий коміт до будь-яких модельних eval оновленого набору.
-**Спостереження після прогнозу:** clean — 37/37 daily PASS; нові retrieval — 10/10 PASS. Console: [evidence/clean-eval-console-20261024.txt](evidence/clean-eval-console-20261024.txt). lesson-04 ще не виконано.
-**Розбіжність із прогнозом:** clean 10/10 збігається з прогнозом 10/10; lesson-04 ще не виміряно. Первинний прогноз вище збережено.
+**Спостереження після прогнозу:** clean — 37/37 daily PASS; нові retrieval — 10/10 PASS. Console: [evidence/clean-eval-console-20261024.txt](evidence/clean-eval-console-20261024.txt). lesson-04 — 31/37 daily PASS, retrieval 4/10; FAIL RET-H01, RET-H02, RET-H03, RET-H07, RET-H09, RET-H10.
+**Розбіжність із прогнозом:** clean 10/10 збігається з прогнозом 10/10; lesson-04 4/10 проти прогнозу 8/10. Додаткові FAIL: RET-H02, RET-H07, RET-H09, RET-H10. Первинний прогноз вище збережено. Literal FAIL не ототожнюємо зі змістовно хибною відповіддю; попередній аналіз у evidence/lesson-04-eval-console-summary.json.
 
 ## Прогони
 | Прогін | Профіль | Фактичний результат | Сирий звіт |
 |---|---|---|---|
 | Локальний штатний CLI --dry-run | Без стенду | Exit 0; 42 кейси; hash bba68640a585 | evidence/dataset-validation.json |
 | Docker --dry-run користувача | Без модельних запитів | Завершено; 42 кейси, retrieval 10, hash bba68640a585 | evidence/docker-dry-run.json |
-| Baseline | clean | 37/37 daily PASS: action 11/11, generation 16/16, retrieval 10/10; 494.6 с | Console збережено; raw golden-clean-20261024T213319.json очікується |
-| Профіль заняття | lesson-04 | Не виконано для оновленого набору | TODO |
+| Baseline | clean | 37/37 daily PASS: action 11/11, generation 16/16, retrieval 10/10; 494.6 с | [raw JSON](reports/golden-clean-20261024T213319.json); hash bba68640a585 |
+| Профіль заняття | lesson-04 | 31/37 daily PASS: action 11/11, generation 16/16, retrieval 4/10; 530.5 с | [Console summary](evidence/lesson-04-eval-console-summary.json); raw JSON очікується |
 
 ## Підтверджені ручні результати
 - C-13/C-14: по дві нові сесії; вихідні симптоми не відтворено у реконструйованих сценаріях. Побічні збої та обмеження збережено окремо.
@@ -79,7 +79,7 @@ Contains перевіряє заданий текст/формат, а не вс
 - D25 ×5 і правило промпту збережено; D05 контроль без пошуку збережено.
 
 ## Залишилося до здачі
-1. Docker dry-run і модельний clean eval підтверджено. Далі провести lesson-04 eval.
-2. Додати raw reports із тим самим hash; зіставити фактичні retrieval FAIL із закоміченим прогнозом.
+1. Обидва модельні прогони завершено; повтор не потрібен. Зберегти raw lesson-04 JSON.
+2. Перевірити hash lesson-04 JSON і повні retrieval payload-и шести FAIL. Clean raw JSON збережено; hash збігається. Прогноз уже звірено за console, не переписано.
 3. Закрити TODO звіту: метадані/faithfulness пари індексів, оцінка вартості переіндексації, залишковий ризик і останній рядок рішення.
 4. Скоротити остаточний звіт до двох сторінок і звірити чекліст ДЗ.
