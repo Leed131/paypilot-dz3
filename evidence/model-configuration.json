@@ -1,0 +1,18 @@
+{
+  "confirmed_on_local_date": "2026-10-25",
+  "timezone": "Europe/Copenhagen",
+  "source": "User-provided terminal screenshot: 2026-10-25 at 00.00.22",
+  "command": "sed -n '/^LLM_PROVIDER=/p; /^LLM_MODEL=/p' ../paypilot-stand-shared/.env",
+  "observed_values": {
+    "LLM_PROVIDER": "openai",
+    "LLM_MODEL": "gpt-5-mini"
+  },
+  "previous_observed_snapshot": {
+    "trace_id": "84267098",
+    "model": "gpt-5-mini-2025-08-07"
+  },
+  "limitations": [
+    "The current configuration confirms the provider and model alias; it does not retroactively attest the exact resolved snapshot of every historical run.",
+    "Raw eval JSON files omit agent model/provider fields. No API keys or full environment file were collected."
+  ]
+}
