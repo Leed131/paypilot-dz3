@@ -1,0 +1,121 @@
+{
+  "experiment": "top_k tradeoff",
+  "top_k": 4,
+  "request": "знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2",
+  "settings": {
+    "profile": "clean",
+    "index": "kb_clean",
+    "customer_id": "",
+    "active_defects": [],
+    "new_session_per_run": true
+  },
+  "runs": [
+    {
+      "run_number": 1,
+      "trace_id": "5690602c",
+      "session_id": "e567144d8698",
+      "complete_answer": true,
+      "search_calls": 1,
+      "input_tokens": 4691,
+      "output_tokens": 2016,
+      "query": "Tier 2 spread daily limit Tier 2 спред денний ліміт Tier 2",
+      "fragment_ids": [
+        "limits.md#s1",
+        "glossary.md#s6",
+        "tariffs.md#s2",
+        "tariffs.md#s1"
+      ],
+      "evidence_file": "lab-notes.md",
+      "source_note": "Earlier user-provided full search result and agent.request; preserved in lab notes."
+    },
+    {
+      "run_number": 2,
+      "trace_id": "d41ee38c",
+      "session_id": "e5c9d04c98a6",
+      "complete_answer": true,
+      "search_calls": 1,
+      "input_tokens": 4677,
+      "output_tokens": 1636,
+      "query": "Tier 2 spread daily transfer limit Tier 2 spread limit",
+      "fragment_ids": [
+        "limits.md#s1",
+        "glossary.md#s6",
+        "tariffs.md#s1",
+        "tariffs.md#s2"
+      ],
+      "evidence_file": "top-k-4-run-2.json"
+    },
+    {
+      "run_number": 3,
+      "trace_id": "3dc10077",
+      "session_id": "a53ede79f918",
+      "complete_answer": true,
+      "search_calls": 1,
+      "input_tokens": 4698,
+      "output_tokens": 2266,
+      "query": "Tier 2 spread daily transfer limit Tier 2 spread 'Tier 2' 'spread' 'daily limit'",
+      "fragment_ids": [
+        "limits.md#s1",
+        "glossary.md#s6",
+        "tariffs.md#s1",
+        "tariffs.md#s2"
+      ],
+      "evidence_file": "top-k-4-run-3.json"
+    }
+  ],
+  "aggregate": {
+    "runs_completed": 3,
+    "runs_required": 3,
+    "complete_answers": {
+      "numerator": 3,
+      "denominator": 3,
+      "value": 1
+    },
+    "exactly_one_search_and_complete": {
+      "numerator": 3,
+      "denominator": 3,
+      "value": 1
+    },
+    "search_call_counts": [
+      1,
+      1,
+      1
+    ],
+    "input_tokens": {
+      "values": [
+        4691,
+        4677,
+        4698
+      ],
+      "total": 14066,
+      "mean": 4688.666666666667
+    },
+    "output_tokens": {
+      "values": [
+        2016,
+        1636,
+        2266
+      ],
+      "total": 5918,
+      "mean": 1972.6666666666667
+    },
+    "context_recall": {
+      "numerator": 6,
+      "denominator": 6,
+      "value": 1
+    },
+    "context_precision": {
+      "numerator": 6,
+      "denominator": 12,
+      "value": 0.5,
+      "convention": "All fragment occurrences, relevance scoped to two requested values per run."
+    },
+    "faithfulness_requested_numeric_claims": {
+      "numerator": 6,
+      "denominator": 6,
+      "value": 1,
+      "scope": "Only the two requested numerical claims per answer."
+    }
+  },
+  "interpretation": "All three runs retrieved both target fragments in one search and answered both facts correctly. Queries varied; these are small-sample observations, not a guarantee of future performance."
+}
