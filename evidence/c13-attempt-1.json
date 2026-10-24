@@ -1,0 +1,126 @@
+{
+  "complaint_id": "C-13",
+  "attempt": 1,
+  "source": "User-provided trace text, JSON and screenshot; not an eval runner report",
+  "date": "2026-10-24",
+  "trace_id": "deeff034",
+  "request": "Search the Verta documentation and show the FX spread and free monthly conversion allowance for every account tier in a table.",
+  "customer_context_note": "CUS-0003 selected as controlled test context; original complaint does not identify its customer.",
+  "attributes": {
+    "session.id": "7d8fa3d773d3",
+    "dialog.step_number": 1,
+    "run.profile": "lesson-04",
+    "run.active_defects": [
+      "D05",
+      "D16",
+      "D17"
+    ],
+    "prompt.version": "base.v1+D05",
+    "reply.language_detected": "",
+    "llm.provider": "openai",
+    "session.customer_id": "CUS-0003",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 28494,
+    "gen_ai.usage.total_output_tokens": 3485
+  },
+  "duration_ms": 50083.1,
+  "tool_calls": [
+    {
+      "name": "get_account"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b1"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b1"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "limits.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "limits.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "limits.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b3"
+    },
+    {
+      "name": "search_knowledge_base",
+      "index": "kb_broken",
+      "top_k": 1,
+      "fragment_id": "tariffs.md#b3"
+    }
+  ],
+  "last_search": {
+    "tool.name": "search_knowledge_base",
+    "tool.arguments": {
+      "query": "\"Tier 3\" \"Free monthly conversion allowance\" \"tariffs\" Verta \"Tier 3\" \"free monthly\""
+    },
+    "tool.result": {
+      "index": "kb_broken",
+      "top_k": 1,
+      "query": "\"Tier 3\" \"Free monthly conversion allowance\" \"tariffs\" Verta \"Tier 3\" \"free monthly\"",
+      "fragments": [
+        {
+          "id": "tariffs.md#b3",
+          "doc": "tariffs.md",
+          "score": 1.7321,
+          "text": "austed. | Tier | FX spread | Free monthly conversion allowance | |---|---|---| | Tier 1 | 1.5% | EUR 500 | | Tier 2 | 0.9% | EUR 1,000 | | Tier 3 | 0.5% | EUR 5"
+        }
+      ]
+    }
+  },
+  "final_reply": "I could not complete this request within the step budget.",
+  "outcome": {
+    "original_wrong_1500_allowance_reproduced": false,
+    "attempts_completed": 1,
+    "attempts_required_before_nonreproduction_status": 2,
+    "observed_failure": "Exhausted agent step budget after 11 searches; retrieved tariff row is truncated at EUR 5.",
+    "classification": "Original complaint pending second attempt. Truncated indexing and repeated retrieval observed; no final incorrect tariff table was produced.",
+    "causal_limit": "D05, D16 and D17 active together; cannot attribute entire loop to a single defect in this attempt."
+  }
+}
