@@ -36,6 +36,12 @@
     "margins_pt": 34,
     "visual_review": "Two pages rendered with Poppler and inspected; no clipping or overflow. Markdown pagination varies by renderer."
   },
-  "remaining_confirmation": "LLM_PROVIDER/LLM_MODEL from actual stand configuration; exact agent model absent from raw eval JSON",
-  "claims_scope": "Manual faithfulness of checked documentary claims; not the full account/tool/proposal text"
+  "claims_scope": "Manual faithfulness of checked documentary claims; not the full account/tool/proposal text",
+  "model_configuration": {
+    "LLM_PROVIDER": "openai",
+    "LLM_MODEL": "gpt-5-mini"
+  },
+  "model_configuration_evidence": "evidence/model-configuration.json",
+  "ready_for_mentor_review": true,
+  "remaining_metadata_limit": "Historical resolved snapshot for each run was not logged; current provider/model alias and D05 snapshot are documented."
 }
