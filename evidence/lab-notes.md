@@ -59,8 +59,17 @@ clean + D25: get_account і quote_fx 5/5; хибна сума 6500 USD 5/5.
 - D05 84267098: тільки llm.call, жодного інструмента; відповідь 15 EUR без відсоткової комісії.
 - session ac361934d043, dialog.step_number=1, run.profile=clean, active_defects=[D05], prompt.version=base.v1+D05, replay=false, модель gpt-5-mini-2025-08-07, вхід 1429, вихід 786.
 
+## C-13 — спроба 1
+[Структуровані дані](c13-attempt-1.json). Трейс `deeff034`, session `7d8fa3d773d3`.
+Профіль lesson-04, D05/D16/D17, prompt base.v1+D05, kb_broken/top_k1. CUS-0003 — обраний тестовий контекст, не ідентифікований автор скарги.
+Запит: “Search the Verta documentation and show the FX spread and free monthly conversion allowance for every account tier in a table.”
+Виклики: get_account один раз; search_knowledge_base 11 разів (tariffs#b1 двічі, tariffs#b3 шість разів, limits#b3 тричі). Жоден видимий пошук не повернув tariffs#b4.
+Повний останній tool.result містить тарифний рядок, що закінчується “| Tier 3 | 0.5% | EUR 5”. Це підтвердження реального обриву, а не лише короткого прев’ю.
+Відповідь: “I could not complete this request within the step budget.”
+Час 50083.1 ms, вхід 28494, вихід 3485 токенів. Початковий симптом 1500 EUR не відтворено в першій спробі; потрібна друга в новій сесії. Не називати виснаження бюджету відтворенням саме помилкового числа; увімкнені три дефекти одночасно.
+
 ## Невиконані вимоги ДЗ_3
-- C-13/C-14: до двох спроб кожної на lesson-04; клас не призначати до перевірки.
+- C-13: залишилася друга спроба; C-14: до двох спроб на lesson-04; клас не призначати до перевірки.
 - По 3 прогони top_k 4/5/3 (є тільки по одному з токенами для 4/5).
 - kb_broken/top_k5, перевірити саме tariffs.md#b4.
 - ≥10 нових кейсів, corpus reference, dry-run, прогноз окремим комітом до eval, clean/lesson-04 eval і новий set_hash.
