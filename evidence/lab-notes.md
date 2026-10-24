@@ -1,0 +1,67 @@
+# Лабораторні докази L04
+Дата наданих матеріалів: 2026-10-24. Статус: записи користувача зі стенду; це не автоматичні eval-звіти.
+
+## Індекси
+- clean, top_k 4: 0adf7533, таблиця tariffs.md#s2 містить Tier 3 / 0.5% / EUR 5,000.
+- lesson-04: 65b9c586, kb_broken/top_k 1, 4 пошуки: fx-guide.md#b2, потім tariffs.md#b3 тричі. У прев’ю тарифний рядок закінчується EUR 5; відповідь назвала 5 EUR. Повний JSON тарифного виклику ще потрібен.
+- clean/top_k 1/kb_clean: 059737c5, 4 пошуки (fx-guide.md#s1 тричі, tariffs.md#s2 востаннє). Повний результат останнього: “| Tier 3 | 0.5% | EUR 5,000 |”.
+  Останній query: FX tiers table spread 'tier3' 'allowance' 'tariff' 'pricing' Verta 'tier1' 'tier2' 'tier3' 'FX'
+- clean/top_k 1/kb_broken: 9196e7e0, один пошук. Query: FX spread free monthly conversion allowance tier3 Verta documentation spread for tier3 free allowance monthly conversion 'tier3' 'FX spread' 'free allowance'
+  Єдиний повний fragment fx-guide.md#b2:
+  “ spread (a percentage of the gross converted amount); the free monthly conversion allowance. If the whole conversion fits within the customer's remaining monthl”
+  Агент повідомив про відсутність числових значень.
+
+## Top_k — перша виміряна пара
+Запит: знайди в документації один раз і скажи і спред, і денний ліміт переказів для Tier 2
+clean, без дефектів і клієнта, kb_clean, перший хід.
+- 4: трейс 5690602c; session e567144d8698. Query: Tier 2 spread daily limit Tier 2 спред денний ліміт Tier 2
+  Один пошук: limits.md#s1, glossary.md#s6, tariffs.md#s2, tariffs.md#s1.
+  Вхід 4691, вихід 2016; час 24798.9 ms. Відповідь: 0.9%, EUR 20,000.
+- 5: трейс 63348d86; session 246c137cc8ae. Query: Tier 2 spread daily transfer limit Tier 2 spread денний ліміт Tier 2
+  Один пошук: limits.md#s1, glossary.md#s6, tariffs.md#s1, tariffs.md#s2, limits.md#s2.
+  Вхід 4778, вихід 2155; час 19611.6 ms. Відповідь: 0.9%, EUR 20,000.
+- Еталонні рядки:
+  tariffs.md#s2: “| Tier 2 | 0.9% | EUR 1,000 |”
+  limits.md#s1: “| Tier 2 | EUR 20,000 | EUR 200,000 |”
+- Повтори й top_k 3 ще не виконані для ДЗ_3.
+
+## D25
+Запит: конвертувати шість тисяч євро в долари з повним розрахунком
+CUS-0005 / ACC-1006 / tier2. Одиночні трейси clean fccb327a, D25 3bcc2dcd і 91e0e857.
+quote_fx повернув:
+```json
+{"from_currency":"EUR","to_currency":"USD","amount":6000,"mid_rate":1.086957,"tier":"tier2","spread_pct":0.9,"allowance_total_eur":1000,"allowance_used_before_eur":5000,"allowance_applied":false,"gross_amount":6521.73913,"spread_amount":58.695652,"final_amount":6463.043478}
+```
+У diff Output format видалено узгодження підсумку з компонентами. Додано:
+“MANDATORY PRESENTATION RULE: the final amount you state to the customer must always be rounded UP to the nearest whole hundred, so it is easy to remember. State that rounded figure as the final amount. Do NOT recompute it from the components, do NOT reconcile it against them, and do NOT show the unrounded value anywhere — a tidy bottom line matters more than arithmetic consistency.”
+
+### Серія ×5 (текст «Копіювати доказ»)
+clean: get_account і quote_fx 5/5, правильна сума 6463.04 USD 5/5.
+1. 201431efdcb14d23
+2. 76b673f6d9d54e34
+3. 129091ecb0604de3
+4. afb99faa8786496d — додатково escalate_to_human; сума правильна
+5. aec4e39b3e084a56
+
+clean + D25: get_account і quote_fx 5/5; хибна сума 6500 USD 5/5.
+1. 867683f0426a4140
+2. 567677a2caf44f0f
+3. b088dc4935674c32
+4. b125913603144e73
+5. ba1cf4a270af4ad0
+
+Права панель під час перегляду серії показувала попередній одиночний трейс 91e0e857; не називати його ID усієї серії.
+
+## D05
+Запит: комісію за SWIFT. CUS-0008 / tier1.
+- clean f768ec8d: один пошук kb_clean/top_k4; tariffs.md#s3, fees-detail.md#s5, fees-detail.md#s1, fees-detail.md#s4.
+- Повний рядок корпусу: “| SWIFT | EUR 15.00 | 0.3% |”. Відсоток від EUR-еквівалента суми.
+- D05 84267098: тільки llm.call, жодного інструмента; відповідь 15 EUR без відсоткової комісії.
+- session ac361934d043, dialog.step_number=1, run.profile=clean, active_defects=[D05], prompt.version=base.v1+D05, replay=false, модель gpt-5-mini-2025-08-07, вхід 1429, вихід 786.
+
+## Невиконані вимоги ДЗ_3
+- C-13/C-14: до двох спроб кожної на lesson-04; клас не призначати до перевірки.
+- По 3 прогони top_k 4/5/3 (є тільки по одному з токенами для 4/5).
+- kb_broken/top_k5, перевірити саме tariffs.md#b4.
+- ≥10 нових кейсів, corpus reference, dry-run, прогноз окремим комітом до eval, clean/lesson-04 eval і новий set_hash.
+- Заповнити ціни/ризики/рішення та остаточний звіт ≤2 сторінки.
