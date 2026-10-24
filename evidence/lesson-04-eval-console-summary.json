@@ -1,5 +1,5 @@
 {
-  "source": "User-supplied terminal output and attached console excerpt; lesson-04 raw JSON not yet supplied",
+  "source": "User console output; subsequently verified against reports/golden-lesson-04-20261024T214702.json",
   "profile": "lesson-04",
   "passed": 31,
   "total": 37,
@@ -27,7 +27,7 @@
     "RET-H10"
   ],
   "reported_path": "evals/reports/golden-lesson-04-20261024T214702.json",
-  "set_hash_status": "Await lesson-04 raw JSON verification; clean raw JSON hash verified as bba68640a585",
+  "set_hash_status": "Verified bba68640a585 in golden.jsonl and both raw reports",
   "forecast": {
     "retrieval_pass_expected": 8,
     "expected_failures": [
@@ -46,13 +46,14 @@
     "RET_H01": "Console shows four searches returning fx-guide.md#b2 and incomplete table response; full payload awaited.",
     "RET_H02": "Console shows repeated searches and step budget exhaustion.",
     "RET_H03": "Answer EUR 15.00 + 0.00%, corpus EUR 15.00 + 0.3%; tool payload required to distinguish unsupported generation from retrieved corruption.",
-    "RET_H07": "FAIL reported; complete case output not yet supplied.",
-    "RET_H09": "Answer quotes MUST call escalate_to_human for restriction, while contains demands escalated to a human agent. Semantically consistent action but quote includes prompt-like text beyond visible retrieval preview; source attribution pending.",
+    "RET_H07": "Raw verified: 12 searches returned disputes#b1 x6, limits-operations#b6 x4, disputes-process#b6 x2; window56 not retrieved; step budget exhausted.",
+    "RET_H09": "Raw verified: returned escalation-policy#b2 is only a truncated list. Full quoted MUST call sentence is absent. Correct general action does not establish faithful documentary quotation.",
     "RET_H10": "Answer correctly explains either, not both. Literal expected string absent; quoted retrieved fragment starts mid-sentence. One search tool call with unsupported top_k argument also errors, followed by successful retry."
   },
   "limitations": [
     "Do not change golden.jsonl or overwrite original verdicts to match results.",
-    "Standard raw clean JSON caps many stored answers at 400 characters; tool results contain complete fragment text. It is not a complete dialogue transcript.",
+    "Runner stores answers[:400]; tool fragment results are complete. Model/provider are not recorded in raw.",
     "The terminal Docker help suggestion alone does not establish an infrastructure error; test summary exists. Shell exit code not supplied."
-  ]
+  ],
+  "status": "Historical console summary; verified raw report now available. Definitive analysis: evidence/model-run-analysis.md"
 }
