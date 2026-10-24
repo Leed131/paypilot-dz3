@@ -2,7 +2,7 @@
 **Чернетка ДЗ_3: лабораторні дані внесено; позначки TODO потрібно закрити перед здачею.**
 
 ## 1. Контекст
-PayPilot; корпус Verta; `kb_clean` — секції, `kb_broken` — по 160 символів. Профілі: `clean`, `lesson-04`; окремі контролі `clean + D25/D05`. Провайдер OpenAI; у наданому трейсі модель `gpt-5-mini-2025-08-07` (TODO: звірити для всіх серій). Прогони: 24.10.2026. Набір: 32 незмінені кейси [ДЗ_2](https://github.com/Leed131/paypilot-dz2) + 10 нових retrieval/corpus = 42 (37 daily, 5 release). `set_hash=bba68640a585` підтверджено штатним CLI і Docker dry-run на комп’ютері користувача; модельні eval ще не виконано.
+PayPilot; корпус Verta; `kb_clean` — секції, `kb_broken` — по 160 символів. Профілі: `clean`, `lesson-04`; окремі контролі `clean + D25/D05`. Провайдер OpenAI; у наданому трейсі модель `gpt-5-mini-2025-08-07` (TODO: звірити для всіх серій). Прогони: 24.10.2026. Набір: 32 незмінені кейси [ДЗ_2](https://github.com/Leed131/paypilot-dz2) + 10 нових retrieval/corpus = 42 (37 daily, 5 release). `set_hash=bba68640a585` підтверджено штатним CLI і Docker dry-run на комп’ютері користувача; модельний clean eval: 37/37 daily PASS (action 11/11, generation 16/16, нові retrieval 10/10), 494.6 с; lesson-04 і перевірка hash сирих модельних JSON ще попереду.
 
 ## 2. Локалізація
 | Випадок | Симптом | Точка | Доказ |
