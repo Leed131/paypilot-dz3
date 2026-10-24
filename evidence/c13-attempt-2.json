@@ -1,0 +1,71 @@
+{
+  "complaint_id": "C-13",
+  "attempt": 2,
+  "date": "2026-10-24",
+  "trace_id": "06ea389a",
+  "source": "User-provided screenshot, agent.request JSON and first search JSON; full tool timeline not supplied.",
+  "request": "Search the Verta documentation and show the FX spread and free monthly conversion allowance for every account tier in a table.",
+  "customer_context_note": "CUS-0003 selected as a controlled reconstruction; original complaint does not identify its customer.",
+  "attributes": {
+    "session.id": "dc2e35925d2b",
+    "dialog.step_number": 1,
+    "run.profile": "lesson-04",
+    "run.active_defects": [
+      "D05",
+      "D16",
+      "D17"
+    ],
+    "prompt.version": "base.v1+D05",
+    "reply.language_detected": "",
+    "llm.provider": "openai",
+    "session.customer_id": "CUS-0003",
+    "context.replay_active": false,
+    "gen_ai.usage.total_input_tokens": 25940,
+    "gen_ai.usage.total_output_tokens": 3370
+  },
+  "displayed_duration_seconds": 47.6,
+  "first_search": {
+    "tool.name": "search_knowledge_base",
+    "tool.arguments": {
+      "query": "FX spread free monthly conversion allowance account tiers Verta documentation FX spread monthly allowance tiers"
+    },
+    "tool.result": {
+      "index": "kb_broken",
+      "top_k": 1,
+      "query": "FX spread free monthly conversion allowance account tiers Verta documentation FX spread monthly allowance tiers",
+      "fragments": [
+        {
+          "id": "tariffs.md#b1",
+          "doc": "tariffs.md",
+          "score": 1.278,
+          "text": "# Verta tariff schedule ## Account tiers Verta offers three account tiers: Tier 1, Tier 2 and Tier 3. The tier of each account sets its pricing as well as its d"
+        }
+      ]
+    }
+  },
+  "screenshot_observations": {
+    "visible_search_calls_minimum": 6,
+    "visible_fragments": [
+      "tariffs.md#b1",
+      "tariffs.md#b3",
+      "tariffs.md#b3",
+      "tariffs.md#b3",
+      "tariffs.md#b3",
+      "tariffs.md#b3"
+    ],
+    "scope": "The screenshot cuts off the later timeline; these are not total call counts."
+  },
+  "reply_transcribed_from_screenshot": "What I did\n- Searched the Verta documentation (tariffs.md) for FX spreads and free monthly conversion allowances by tier.\n\nWhat I found (from tariffs.md)\n- Tier 1 — FX spread: 1.5%; Free monthly conversion allowance: EUR 500\n- Tier 2 — FX spread: 0.9%; Free monthly conversion allowance: EUR 1,000\n- Tier 3 — FX spread: 0.5%; Free monthly conversion allowance: EUR 5\n\nNote: the Tier 3 allowance in the returned document appears truncated (\"EUR 5\"). I cannot assume or invent the full figure.\n\nNext steps\n- I can retrieve the full tariff document or run a targeted search to confirm the Tier 3 allowance. Which would you prefer?",
+  "outcome": {
+    "original_wrong_1500_allowance_reproduced": false,
+    "original_symptom_reproduced_across_attempts": "0/2",
+    "complaint_status": "Не відтворюється у вибраному тестовому контексті за дві спроби",
+    "observed_alternative": "Returned truncated EUR 5 with an explicit warning that the full Tier 3 allowance cannot be inferred.",
+    "classification": "Do not assign a root-cause class to the original 1500-EUR complaint. Index truncation is an independently observed failure.",
+    "limitations": [
+      "The original user message and customer ID are unavailable; the prompt is a reconstruction.",
+      "D05/D16/D17 active together.",
+      "Full timeline of the second attempt is not supplied."
+    ]
+  }
+}
