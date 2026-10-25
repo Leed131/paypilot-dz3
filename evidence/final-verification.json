@@ -14,10 +14,24 @@
     "exit": 0,
     "model_calls": 0
   },
-  "docker_dry_run": "pending",
+  "docker_dry_run": "Separate new output not supplied; actual lesson-04 report verifies kit hash bcf0121ec645",
   "model_eval": {
-    "clean": "pending",
-    "lesson04": "pending"
+    "clean": "Awaiting existing golden-clean-20261025T081118.json visible in screenshot",
+    "lesson04": {
+      "raw": "reports/golden-lesson-04-20261025T082038.json",
+      "set_hash": "bcf0121ec645",
+      "passed": 34,
+      "total": 37,
+      "retrieval_passed": 7,
+      "retrieval_total": 10,
+      "ran_at": "2026-10-25T08:20:38.025791+00:00",
+      "elapsed": 559.1,
+      "failed": [
+        "RET-H01",
+        "RET-H03",
+        "RET-H10"
+      ]
+    }
   },
   "forecast_commit": "7f4d65b5ea9251c7bd3c1fbc2a14d278684d20dc",
   "forecast": {
@@ -38,5 +52,11 @@
     "raw_reports_preserved": true
   },
   "ready_for_mentor_review": false,
-  "reason": "Four replacements prepared; awaiting Docker hash confirmation and new paired model reports. Mandatory section6 cost/timeline correction retained."
+  "reason": "Only new clean raw missing; lesson-04 raw and new four grounded PASS verified.",
+  "forecast_created_at": "2026-10-25T07:54:20Z",
+  "forecast_precedes_lesson04": true,
+  "observed_forecast_deviations_lesson04": [
+    "RET-H02 expected FAIL observed PASS; retrieval remains incomplete",
+    "RET-H09 expected FAIL observed PASS; relevant disputes#b6 retrieved"
+  ]
 }
