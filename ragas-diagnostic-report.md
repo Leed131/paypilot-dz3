@@ -4,7 +4,7 @@
 
 Лабораторні дані та baseline v1 — 24.10.2026; PayPilot, документація Verta; `kb_clean` — секції, `kb_broken` — обірвані чанки. OpenAI / `gpt-5-mini` за налаштуваннями, підтвердженими 25.10.2026; у трейсі D05 — `gpt-5-mini-2025-08-07`. JSON ранера не фіксують snapshot кожного ходу. [ДЗ_2](https://github.com/Leed131/paypilot-dz2): 32 незмінені кейси + 10 retrieval/corpus = 42; 37 daily, 5 release. Baseline v1 [raw reports](reports/): **set_hash=bba68640a585**. Clean/base.v1: 37/37 PASS, retrieval 10/10, 494.6 с; lesson-04/base.v1+D05: 31/37, retrieval 4/10, 530.5 с. Release не запускали. Це verdict assertion, не RAGAS-бали; нижче — ручні метрики.
 
-**Перегляд mentor-v2, 25.10:** замінено H04–H07; поточний hash **bcf0121ec645**, 42 кейси. Нові eval очікуються; наведені нижче модельні результати належать v1. [Новий прогноз](evidence/forecast-mentor-v2.md).
+**Перегляд mentor-v2, 25.10:** замінено H04–H07; поточний hash **bcf0121ec645**, 42 кейси. Lesson-04: 34/37, retrieval7/10, 559.1с; [raw](reports/golden-lesson-04-20261025T082038.json). Clean raw ще очікується. Інші модельні числа нижче належать v1. [Новий прогноз](evidence/forecast-mentor-v2.md).
 
 ## 2. Локалізація
 
