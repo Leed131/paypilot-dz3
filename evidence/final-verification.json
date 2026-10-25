@@ -43,5 +43,25 @@
   },
   "model_configuration_evidence": "evidence/model-configuration.json",
   "ready_for_mentor_review": true,
-  "remaining_metadata_limit": "Historical resolved snapshot for each run was not logged; current provider/model alias and D05 snapshot are documented."
+  "remaining_metadata_limit": "Historical resolved snapshot for each run was not logged; current provider/model alias and D05 snapshot are documented.",
+  "mentor_revision": {
+    "date": "2026-10-25",
+    "required_feedback": "Section 6 needs cost and implementation timeline for retrieval and generation",
+    "addressed": true,
+    "retrieval": {
+      "engineer_hours": 4,
+      "estimated_usd": 122,
+      "implementation_window": "up to 1 working day",
+      "breakdown": "1h configuration + 2h evaluation + 1h QA; 4 * $30 + $2 eval budget"
+    },
+    "generation": {
+      "engineer_hours": 6,
+      "estimated_usd": 183,
+      "implementation_window": "up to 1 working day",
+      "breakdown": "2h prompt + 2h numeric check + 2h QA; 6 * $30 + $3 eval budget"
+    },
+    "assumptions": "Existing system, prepared data/access, one-time local changes; illustrative hourly rate and eval budget; recurring traffic excluded.",
+    "optional_request": "Replace H04-H07 due overlap with lesson facts; recorded for a future dataset version, not performed in this report-only revision.",
+    "dataset_and_raw_reports_unchanged": true
+  }
 }
