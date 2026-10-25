@@ -1,18 +1,18 @@
 # L04 · RAGAS Diagnostic Report — PayPilot
 
-**Перегляд mentor-v2: новий lesson-04 JSON перевірено й збережено; очікується лише новий clean JSON.** На прохання користувача виконуємо також побажання ментора: замінено RET-H04/H05/H06/H07 на інші факти корпусу. Умовні ціна й строк виправлень видачі/генерації вже внесені до розділу 6.
+**Mentor-v2 готова до повторної перевірки ментором: обидва нові raw JSON перевірено й збережено.** На прохання користувача виконуємо також побажання ментора: замінено RET-H04/H05/H06/H07 на інші факти корпусу. Умовні ціна й строк виправлень видачі/генерації вже внесені до розділу 6.
 
 Поточний **set_hash=bcf0121ec645**. Разом **42 кейси: 37 daily, 5 release**, із них 10 retrieval/corpus. Вихідні 32 кейси [ДЗ_2](https://github.com/Leed131/paypilot-dz2) і шість незмінених RET-кейсів збережено. Змінені чотири мають case_revision=2 і dataset_revision=mentor-v2. Provider/model за підтвердженою конфігурацією: OpenAI / gpt-5-mini; raw не записують історичний snapshot кожного ходу.
 
 ## Файли
 
 - [golden.jsonl](golden.jsonl) — **поточна mentor-v2**, hash bcf0121ec645.
-- [ragas-diagnostic-report.md](ragas-diagnostic-report.md) — ручні лабораторні докази й оцінки впровадження; модельні числа v1 підписані як історичні до нових прогонів.
+- [ragas-diagnostic-report.md](ragas-diagnostic-report.md) — фінальний звіт на дві сторінки: лабораторні докази, оцінки впровадження й актуальні результати mentor-v2.
 - [Прогноз mentor-v2](evidence/forecast-mentor-v2.md) — окремо закомічений **до** нових eval: [7f4d65b](https://github.com/Leed131/paypilot-dz3/commit/7f4d65b5ea9251c7bd3c1fbc2a14d278684d20dc).
 - [Перевірка mentor-v2](evidence/dataset-validation-mentor-v2.json), [точні references і SHA](evidence/retrieval-case-sources.json), [заміна чотирьох кейсів](evidence/mentor-v2-changes.json).
 - [Top_k: дев’ять прогонів](evidence/top-k-comparison.json), [broken/k5](evidence/broken-index-top-k-5.json), [ручні докази](evidence/lab-notes.md), [claims audit](evidence/index-pair-claims.json).
 - [Метадані моделі](evidence/model-configuration.json).
-- [Поточний розбір mentor-v2](evidence/model-run-analysis-mentor-v2.md) і [новий lesson-04 raw](reports/golden-lesson-04-20261025T082038.json).
+- [Поточний розбір mentor-v2](evidence/model-run-analysis-mentor-v2.md), [новий clean raw](reports/golden-clean-20261025T081118.json), [новий lesson-04 raw](reports/golden-lesson-04-20261025T082038.json).
 
 ## Нові факти замість повторів заняття
 
@@ -53,7 +53,7 @@ STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --p
 STAND_DIR=../paypilot-stand-shared docker compose run --rm eval --set golden --profile lesson-04
 ```
 
-Спершу звірити dry-run: hash **bcf0121ec645**, 42 cases, retrieval10, daily37, release5. Локальний штатний CLI без моделі вже успішний; окремий новий Docker dry-run не прикладено, але hash робочої копії підтверджено новим модельним lesson-04 JSON. До запусків прогноз уже закомічено. Зберегти обидва нові raw JSON, переконатися в однаковому hash. П’ять release-кейсів не запускаються типовим daily gate. .env і ключі не належать до файлів здачі.
+Спершу звірити dry-run: hash **bcf0121ec645**, 42 cases, retrieval10, daily37, release5. Локальний штатний CLI без моделі вже успішний; окремий новий Docker dry-run не прикладено, але hash робочої копії підтверджено обома новими модельними JSON. До запусків прогноз уже закомічено. Обидва нові raw JSON уже збережено, hash однаковий; повторювати прогони для здачі не потрібно. П’ять release-кейсів не запускаються типовим daily gate. .env і ключі не належать до файлів здачі.
 
 ## Прогноз mentor-v2 до прогонів
 
@@ -64,11 +64,11 @@ Clean: **10/10** нових retrieval. Lesson-04: **5/10**, очікувані F
 | Запуск | Статус | Hash / результат |
 |---|---|---|
 | Штатний CLI --dry-run | Завершено, exit0; модель не викликалась | bcf0121ec645; 42 cases, retrieval10 |
-| Hash робочої копії кіту | Підтверджено lesson-04 raw | bcf0121ec645; окремий dry-run вивід не прикладено |
-| clean model eval | Файл видно на скриншоті, вміст не отримано | Очікується golden-clean-20261025T081118.json |
+| Hash робочої копії кіту | Підтверджено обома raw | bcf0121ec645; окремий dry-run вивід не прикладено |
+| clean model eval | Завершено: 37/37, retrieval10/10; 516.9с | [Raw](reports/golden-clean-20261025T081118.json), hash bcf0121ec645 |
 | lesson-04 model eval | Завершено: 34/37, retrieval7/10; 559.1с | [Raw](reports/golden-lesson-04-20261025T082038.json), hash bcf0121ec645 |
 
-Факт lesson-04: **7/10** проти прогнозу **5/10**. FAIL **H01/H03/H10**. H02 і H09 несподівано PASS; H02 має неповний retrieval (лише4/6 потрібних фактів), H09 отримав релевантний disputes#b6. Нові H04–H07 усі PASS із пошуком; факти підтверджені. [Розбір](evidence/model-run-analysis-mentor-v2.md). Clean прогноз10/10 ще не звірено.
+Факт lesson-04: **7/10** проти прогнозу **5/10**. FAIL **H01/H03/H10**. H02 і H09 несподівано PASS; H02 має неповний retrieval (лише4/6 потрібних фактів), H09 отримав релевантний disputes#b6. Нові H04–H07 усі PASS із пошуком; факти підтверджені. [Розбір](evidence/model-run-analysis-mentor-v2.md). Clean прогноз10/10 підтвердився: 37/37 daily PASS, retrieval10/10. У всіх10 нових retrieval-кейсах був рівно один пошук kb_clean/top_k4. Чотири замінені кейси підтверджені корпусом в обох профілях. Нові прогони відбулися після коміту прогнозу07:54:20UTC: clean08:11:18UTC, lesson-04 08:20:38UTC.
 
 ## Історична v1 — результати до заміни кейсів
 
@@ -81,6 +81,6 @@ Clean: **10/10** нових retrieval. Lesson-04: **5/10**, очікувані F
 
 Прогноз v1 [81753a9](https://github.com/Leed131/paypilot-dz3/commit/81753a9decf97c22ff9eff6dbb9ef36353f7725f) був до v1 eval: ожидали clean10/10, lesson-04 8/10; фактично 10/10 і4/10. [Історичний розбір](evidence/model-run-analysis.md) не переносимо на нові H04–H07. Raw обрізають answers на 400 символах, tool fragments повні; judge_model=not-used — не модель агента.
 
-## Наступний крок
+## Повторна здача
 
-Отримати вже створений clean JSON golden-clean-20261025T081118.json, звірити hash bcf0121ec645 і завершити порівняння. Повторні прогони не потрібні. Після цього оновити модельний підсумок звіту; факти ручних серій та обов’язкові оцінки впровадження зберігаються.
+Передати ментору ту саму адресу головної гілки: https://github.com/Leed131/paypilot-dz3 . Обов’язкова правка розділу6 виконана: видача $122/4год/до1робочогодня; генерація $183/6год/до1робочогодня з явними припущеннями. Побажання також виконано: H04–H07 замінено, новий набір перевірено й прогнано на обох профілях. Підсумковий звіт містить шість розділів і останній рядок; A4-рендер після оновлення повторно перевірено — дві сторінки. Старі звіти не видалено й не підмінено. Повторні прогони та додатковий push користувача не потрібні.
