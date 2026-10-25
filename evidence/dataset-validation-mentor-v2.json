@@ -1,0 +1,14 @@
+{
+  "set_hash": "bcf0121ec645",
+  "cases": 42,
+  "original_32_unchanged": true,
+  "changed_cases": [
+    "RET-H04",
+    "RET-H05",
+    "RET-H06",
+    "RET-H07"
+  ],
+  "new_references_verified": true,
+  "official_cli_dry_run_exit": 0,
+  "model_eval_performed": false
+}
