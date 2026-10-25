@@ -1,0 +1,91 @@
+{
+  "source_repository": "Leed131/paypilot-stand-shared",
+  "date": "2026-10-24",
+  "cases": [
+    {
+      "id": "RET-H01",
+      "corpus_source": "app/rag/corpus/tariffs.md, FX spreads by tier, рядки 14–16",
+      "corpus_blob_sha": "b29e9d45e080dea9b151355a0dcc686722468b65",
+      "reference": "| Tier 1 | 1.5% | EUR 500 |\n| Tier 2 | 0.9% | EUR 1,000 |\n| Tier 3 | 0.5% | EUR 5,000 |",
+      "source": "complaint",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H02",
+      "corpus_source": "app/rag/corpus/disputes.md, Reason codes and chargeback windows, рядки 8–12",
+      "corpus_blob_sha": "f9da1910abdc5d14064eb7773415035a0de7eaef",
+      "reference": "| fraud_card_not_present | 120 |\n| goods_not_received | 90 |\n| duplicate_charge | 60 |\n| service_not_rendered | 90 |\n| unauthorized_debit | 56 |",
+      "source": "complaint",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H03",
+      "corpus_source": "app/rag/corpus/tariffs.md, Transfer fees by type, рядки 23–23",
+      "corpus_blob_sha": "b29e9d45e080dea9b151355a0dcc686722468b65",
+      "reference": "| SWIFT | EUR 15.00 | 0.3% |",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H04",
+      "corpus_source": "app/rag/corpus/tariffs.md, Transfer fees by type, рядки 22–22",
+      "corpus_blob_sha": "b29e9d45e080dea9b151355a0dcc686722468b65",
+      "reference": "| SEPA | EUR 0.35 | 0% |",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H05",
+      "corpus_source": "app/rag/corpus/tariffs.md, Transfer fees by type, рядки 24–24",
+      "corpus_blob_sha": "b29e9d45e080dea9b151355a0dcc686722468b65",
+      "reference": "| Card payment | EUR 0.00 | 1.2% |",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H06",
+      "corpus_source": "app/rag/corpus/limits.md, Daily and monthly limits by tier, рядки 11–11",
+      "corpus_blob_sha": "829f0f4f3e7986317bb86a31b50d3addfc352b5b",
+      "reference": "| Tier 1 | EUR 5,000 | EUR 50,000 |",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H07",
+      "corpus_source": "app/rag/corpus/disputes.md, Reason codes and chargeback windows, рядки 12–12",
+      "corpus_blob_sha": "f9da1910abdc5d14064eb7773415035a0de7eaef",
+      "reference": "| unauthorized_debit | 56 |",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H08",
+      "corpus_source": "app/rag/corpus/disputes.md, Eligibility conditions, рядки 16–16",
+      "corpus_blob_sha": "f9da1910abdc5d14064eb7773415035a0de7eaef",
+      "reference": "valid; the transaction status is settled; the transaction date is within the",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H09",
+      "corpus_source": "app/rag/corpus/disputes.md, Escalation on blocked disputes, рядки 22–23",
+      "corpus_blob_sha": "f9da1910abdc5d14064eb7773415035a0de7eaef",
+      "reference": "When a dispute is blocked by a customer-level restriction, the case must be\nescalated to a human agent.",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    },
+    {
+      "id": "RET-H10",
+      "corpus_source": "app/rag/corpus/limits.md, How the remainder is computed, рядки 18–19",
+      "corpus_blob_sha": "829f0f4f3e7986317bb86a31b50d3addfc352b5b",
+      "reference": "A transfer is refused when\nit exceeds either remainder.",
+      "source": "corpus",
+      "reference_found_verbatim": true
+    }
+  ],
+  "limits": [
+    "Contains checks requested literal phrases/format; it does not prove retrieval was invoked or evaluate all claims in an answer.",
+    "References copied from repository corpus; local stand corpus must match these pinned source blobs.",
+    "No model-backed eval performed during dataset preparation."
+  ]
+}
