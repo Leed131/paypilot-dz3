@@ -203,3 +203,9 @@ H10 логіка either коректна, але exact contains не збіга�
 
 ## Підтвердження моделі — 25.10.2026
 Скриншот термінала 00:00:22: команда вибіркового читання конфігурації повернула LLM_PROVIDER=openai та LLM_MODEL=gpt-5-mini. [Структурований запис](model-configuration.json). Це закриває запит на назву провайдера/моделі; точні snapshot ID всіх історичних ходів не записані. Трейс D05 окремо показував gpt-5-mini-2025-08-07. ДЗ_3 підготовлено до перевірки ментором: звіт, незмінений набір, обидва raw, порівняння прогнозу та межі збережені. Додаткові прогони не проводили.
+
+
+## Повне врахування побажання ментора — mentor-v2
+25.10.2026 користувач попросив також замінити чотири кейси і провести нові eval. H04: refund через Verta error; H05: reversal rate at reversal time; H06: 7 calendar days для requested evidence; H07: downgrade at next annual review. Старі SEPA/card/Tier1/unauthorized_debit факти вилучено з цих чотирьох кейсів; вихідні 32 ДЗ_2 і шість інших RET-кейсів не змінено.
+Поточний hash **bcf0121ec645**, 42 кейси, retrieval10, daily37, release5. Локальний штатний CLI dry-run exit0, reference/SHA нових чотирьох перевірено. [Зміни](mentor-v2-changes.json). Старі набори/sources/verification з hashbba68640a585 архівовано в datasets/, старі raw лишилися без змін. Старий аналіз не є результатом нової версії.
+[Прогноз mentor-v2](forecast-mentor-v2.md) у коміті 7f4d65b5ea9251c7bd3c1fbc2a14d278684d20dc: clean10/10 retrieval, lesson-04 5/10; FAIL H01/H02/H03/H09/H10. Прогноз зроблено до нових model eval. Очікуються Docker dry-run на комп’ютері користувача і нові clean/lesson-04 raw із bcf0121ec645. Зарахування нової версії ще не заявляємо; обов’язкова правка цін і строків розділу6 збережена.
