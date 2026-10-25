@@ -1,6 +1,6 @@
 {
   "source_repository": "Leed131/paypilot-stand-shared",
-  "date": "2026-10-24",
+  "date": "2026-10-25",
   "cases": [
     {
       "id": "RET-H01",
@@ -28,35 +28,39 @@
     },
     {
       "id": "RET-H04",
-      "corpus_source": "app/rag/corpus/tariffs.md, Transfer fees by type, рядки 22–22",
-      "corpus_blob_sha": "b29e9d45e080dea9b151355a0dcc686722468b65",
-      "reference": "| SEPA | EUR 0.35 | 0% |",
+      "corpus_source": "app/rag/corpus/fees-detail.md, Fee refunds, рядки 17–18",
+      "corpus_blob_sha": "31ec2390c05738b2cc4909dbf586491ca69fac2e",
+      "reference": "A fee is refunded only when the underlying transaction is reversed because of a\nVerta error.",
       "source": "corpus",
-      "reference_found_verbatim": true
+      "reference_found_verbatim": true,
+      "case_revision": 2
     },
     {
       "id": "RET-H05",
-      "corpus_source": "app/rag/corpus/tariffs.md, Transfer fees by type, рядки 24–24",
-      "corpus_blob_sha": "b29e9d45e080dea9b151355a0dcc686722468b65",
-      "reference": "| Card payment | EUR 0.00 | 1.2% |",
+      "corpus_source": "app/rag/corpus/fx-operations.md, Reversals, рядки 25–26",
+      "corpus_blob_sha": "3a2b2e6b7e0aa1119005cbc688ad7e55d2404617",
+      "reference": "If a converted payment is reversed, the reversal is converted back at the rate\nin force at reversal time.",
       "source": "corpus",
-      "reference_found_verbatim": true
+      "reference_found_verbatim": true,
+      "case_revision": 2
     },
     {
       "id": "RET-H06",
-      "corpus_source": "app/rag/corpus/limits.md, Daily and monthly limits by tier, рядки 11–11",
-      "corpus_blob_sha": "829f0f4f3e7986317bb86a31b50d3addfc352b5b",
-      "reference": "| Tier 1 | EUR 5,000 | EUR 50,000 |",
+      "corpus_source": "app/rag/corpus/disputes-process.md, Evidence requirements, рядки 26–27",
+      "corpus_blob_sha": "dc0eefb08e9afb32bbead21a40a6793b15588f05",
+      "reference": "Failure to supply requested\nevidence within 7 calendar days results in the case being declined.",
       "source": "corpus",
-      "reference_found_verbatim": true
+      "reference_found_verbatim": true,
+      "case_revision": 2
     },
     {
       "id": "RET-H07",
-      "corpus_source": "app/rag/corpus/disputes.md, Reason codes and chargeback windows, рядки 12–12",
-      "corpus_blob_sha": "f9da1910abdc5d14064eb7773415035a0de7eaef",
-      "reference": "| unauthorized_debit | 56 |",
+      "corpus_source": "app/rag/corpus/onboarding.md, Downgrades, рядки 13–14",
+      "corpus_blob_sha": "bd5251bdd5008020eaf1afd0eb21b10ef9bf6681",
+      "reference": "A customer who no longer meets the criteria is downgraded at the next annual\nreview, never mid-month.",
       "source": "corpus",
-      "reference_found_verbatim": true
+      "reference_found_verbatim": true,
+      "case_revision": 2
     },
     {
       "id": "RET-H08",
@@ -87,5 +91,6 @@
     "Contains checks requested literal phrases/format; it does not prove retrieval was invoked or evaluate all claims in an answer.",
     "References copied from repository corpus; local stand corpus must match these pinned source blobs.",
     "No model-backed eval performed during dataset preparation."
-  ]
+  ],
+  "dataset_revision": "mentor-v2"
 }
