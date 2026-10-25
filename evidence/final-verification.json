@@ -14,9 +14,19 @@
     "exit": 0,
     "model_calls": 0
   },
-  "docker_dry_run": "Separate new output not supplied; actual lesson-04 report verifies kit hash bcf0121ec645",
+  "docker_dry_run": "Separate new output not supplied; both actual model reports confirm kit set_hash bcf0121ec645.",
   "model_eval": {
-    "clean": "Awaiting existing golden-clean-20261025T081118.json visible in screenshot",
+    "clean": {
+      "raw": "reports/golden-clean-20261025T081118.json",
+      "set_hash": "bcf0121ec645",
+      "passed": 37,
+      "total": 37,
+      "retrieval_passed": 10,
+      "retrieval_total": 10,
+      "ran_at": "2026-10-25T08:11:18.205050+00:00",
+      "elapsed": 516.9,
+      "total_input_output_tokens": 192282
+    },
     "lesson04": {
       "raw": "reports/golden-lesson-04-20261025T082038.json",
       "set_hash": "bcf0121ec645",
@@ -30,7 +40,8 @@
         "RET-H01",
         "RET-H03",
         "RET-H10"
-      ]
+      ],
+      "total_input_output_tokens": 245705
     }
   },
   "forecast_commit": "7f4d65b5ea9251c7bd3c1fbc2a14d278684d20dc",
@@ -51,12 +62,24 @@
     "verification": "evidence/datasets/verification-bba68640a585.json",
     "raw_reports_preserved": true
   },
-  "ready_for_mentor_review": false,
-  "reason": "Only new clean raw missing; lesson-04 raw and new four grounded PASS verified.",
+  "ready_for_mentor_review": true,
+  "reason": "Mandatory section6 correction, requested four-case replacement, paired new raw reports, forecast comparison, and final two-page report complete.",
   "forecast_created_at": "2026-10-25T07:54:20Z",
   "forecast_precedes_lesson04": true,
   "observed_forecast_deviations_lesson04": [
     "RET-H02 expected FAIL observed PASS; retrieval remains incomplete",
     "RET-H09 expected FAIL observed PASS; relevant disputes#b6 retrieved"
-  ]
+  ],
+  "report_hashes_match": true,
+  "forecast_precedes_clean": true,
+  "clean_forecast_matched": true,
+  "new_four_cases_passed_both_profiles": true,
+  "new_four_cases_retrieval_grounded_both_profiles": true,
+  "report_layout": {
+    "format": "A4",
+    "pages": 2,
+    "font": "DejaVu Sans 9.3pt",
+    "margins_pt": 34,
+    "visual_review": "Final mentor-v2 pages rendered with Poppler and inspected after current results and required prices/times added. No clipping. Markdown pagination depends on renderer."
+  }
 }
