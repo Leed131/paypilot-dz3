@@ -1,67 +1,42 @@
 {
-  "golden_blob_sha": "0d8dc6f8eea54b29e07c364c3c0cb6dd2dd3c34f",
-  "set_hash": "bba68640a585",
-  "report_hashes_match": true,
+  "dataset_revision": "mentor-v2",
+  "set_hash": "bcf0121ec645",
   "case_count": 42,
   "new_retrieval_cases": 10,
   "original_32_unchanged": true,
-  "forecast_commit": "81753a9decf97c22ff9eff6dbb9ef36353f7725f",
-  "forecast_created_at": "2026-10-24T21:11:32Z",
-  "forecast_precedes_clean": true,
-  "forecast_precedes_lesson04": true,
-  "clean": {
-    "passed": 37,
-    "total": 37,
-    "retrieval": 10,
-    "ran_at": "2026-10-24T21:33:19.838110+00:00"
+  "changed_cases": [
+    "RET-H04",
+    "RET-H05",
+    "RET-H06",
+    "RET-H07"
+  ],
+  "local_official_cli_dry_run": {
+    "exit": 0,
+    "model_calls": 0
   },
-  "lesson04": {
-    "passed": 31,
-    "total": 37,
-    "retrieval": 4,
-    "ran_at": "2026-10-24T21:47:02.449260+00:00",
-    "failed": [
+  "docker_dry_run": "pending",
+  "model_eval": {
+    "clean": "pending",
+    "lesson04": "pending"
+  },
+  "forecast_commit": "7f4d65b5ea9251c7bd3c1fbc2a14d278684d20dc",
+  "forecast": {
+    "clean_retrieval": "10/10",
+    "lesson04_retrieval": "5/10",
+    "lesson04_expected_failures": [
       "RET-H01",
       "RET-H02",
       "RET-H03",
-      "RET-H07",
       "RET-H09",
       "RET-H10"
     ]
   },
-  "report_layout": {
-    "format": "A4",
-    "pages": 2,
-    "font": "DejaVu Sans 9.3pt",
-    "margins_pt": 34,
-    "visual_review": "Two pages rendered with Poppler and inspected; no clipping or overflow. Markdown pagination varies by renderer."
+  "previous_dataset": {
+    "hash": "bba68640a585",
+    "archive": "evidence/datasets/golden-bba68640a585.jsonl",
+    "verification": "evidence/datasets/verification-bba68640a585.json",
+    "raw_reports_preserved": true
   },
-  "claims_scope": "Manual faithfulness of checked documentary claims; not the full account/tool/proposal text",
-  "model_configuration": {
-    "LLM_PROVIDER": "openai",
-    "LLM_MODEL": "gpt-5-mini"
-  },
-  "model_configuration_evidence": "evidence/model-configuration.json",
-  "ready_for_mentor_review": true,
-  "remaining_metadata_limit": "Historical resolved snapshot for each run was not logged; current provider/model alias and D05 snapshot are documented.",
-  "mentor_revision": {
-    "date": "2026-10-25",
-    "required_feedback": "Section 6 needs cost and implementation timeline for retrieval and generation",
-    "addressed": true,
-    "retrieval": {
-      "engineer_hours": 4,
-      "estimated_usd": 122,
-      "implementation_window": "up to 1 working day",
-      "breakdown": "1h configuration + 2h evaluation + 1h QA; 4 * $30 + $2 eval budget"
-    },
-    "generation": {
-      "engineer_hours": 6,
-      "estimated_usd": 183,
-      "implementation_window": "up to 1 working day",
-      "breakdown": "2h prompt + 2h numeric check + 2h QA; 6 * $30 + $3 eval budget"
-    },
-    "assumptions": "Existing system, prepared data/access, one-time local changes; illustrative hourly rate and eval budget; recurring traffic excluded.",
-    "optional_request": "Replace H04-H07 due overlap with lesson facts; recorded for a future dataset version, not performed in this report-only revision.",
-    "dataset_and_raw_reports_unchanged": true
-  }
+  "ready_for_mentor_review": false,
+  "reason": "Four replacements prepared; awaiting Docker hash confirmation and new paired model reports. Mandatory section6 cost/timeline correction retained."
 }
